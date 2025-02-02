@@ -1,0 +1,69 @@
+<template>
+    <lightning-card>
+        <div slot="title">
+            <div class="slds-media slds-media_center">
+                <div class="slds-media__figure">
+                    <img src={achilleLogo} alt="Achille Logo" class="achille-logo"/>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">Achille AI</h2>
+                </div>
+            </div>
+        </div>
+        <div class="slds-p-around_medium">
+            <div class="slds-grid slds-wrap slds-gutters">
+                <!-- AISAT -->
+                <div class="slds-col slds-size_1-of-2 slds-p-bottom_medium">
+                    <div class="indicator-box">
+                        <div class="indicator-icon">
+                            <img src={achilleAisat} alt="AISAT Icon" class="custom-icon"/>
+                        </div>
+                        <div class="indicator-label">AISAT</div>
+                        <div class="indicator-value success-background">
+                            {aisat} %
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Priorité -->
+                <div class="slds-col slds-size_1-of-2 slds-p-bottom_medium">
+                    <div class="indicator-box">
+                        <div class="indicator-icon">
+                            <img src={achillePriority} alt="Priority Icon" class="custom-icon"/>
+                        </div>
+                        <div class="indicator-label">Priorité</div>
+                        <div class="indicator-value info-background">
+                            {priority}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Message -->
+                <div class="slds-col slds-size_1-of-2">
+                    <div class="indicator-box">
+                        <div class="indicator-icon">
+                            <lightning-icon icon-name="utility:chat" size="medium"></lightning-icon>
+                        </div>
+                        <div class="indicator-label">Message</div>
+                        <div class="indicator-value success-background">
+                            Suggestion ok
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Client -->
+                <div class="slds-col slds-size_1-of-2">
+                    <div class="indicator-box">
+                        <div class="indicator-icon">
+                            <lightning-icon icon-name="utility:user" size="medium"></lightning-icon>
+                        </div>
+                        <div class="indicator-label">Client</div>
+                        <div class="indicator-value info-background">
+                            Non enregistré
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template> 

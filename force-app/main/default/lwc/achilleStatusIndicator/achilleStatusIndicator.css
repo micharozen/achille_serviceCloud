@@ -1,0 +1,44 @@
+.achille-logo {
+    height: 32px;
+    width: auto;
+}
+
+.custom-icon {
+    height: 24px;
+    width: 24px;
+}
+
+.indicator-box {
+    text-align: center;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.indicator-icon {
+    margin-bottom: 0.5rem;
+}
+
+.indicator-label {
+    font-size: 1rem;
+    color: #514f4d;
+    margin-bottom: 0.5rem;
+}
+
+.indicator-value {
+    display: inline-block;
+    padding: 0.25rem 1rem;
+    border-radius: 1rem;
+    font-weight: bold;
+}
+
+.success-background {
+    background-color: #4bca81;
+    color: white;
+}
+
+.info-background {
+    background-color: #0070d2;
+    color: white;
+} 
