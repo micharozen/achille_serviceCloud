@@ -2,8 +2,8 @@
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>62.0</apiVersion>
     <isExposed>true</isExposed>
-    <masterLabel>Éditeur de Réponse Achille AI</masterLabel>
-    <description>Éditeur de réponse pour Achille AI</description>
+    <masterLabel>Notification Achille AI</masterLabel>
+    <description>Notification pour Achille AI</description>
     <targets>
         <target>lightning__RecordPage</target>
     </targets>

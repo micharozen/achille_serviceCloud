@@ -1,0 +1,32 @@
+.icon-color-info {
+    --slds-c-icon-color-foreground-default: #2C5C9D;
+    --slds-c-icon-color-foreground: #2C5C9D;
+    --slds-g-color-neutral-base-30: #2C5C9D;
+}
+
+.icon-color-warning {
+    --slds-c-icon-color-foreground-default: #E56910;
+    --slds-c-icon-color-foreground: #E56910;
+    --slds-g-color-neutral-base-30: #E56910;
+}
+
+.icon-color-error {
+    --slds-c-icon-color-foreground-default: #B90516;
+    --slds-c-icon-color-foreground: #B90516;
+    --slds-g-color-neutral-base-30: #B90516;
+}
+
+.box-warning {
+    background-color: #FFF7D5;
+    color: #E56910;
+}
+
+.box-error {
+    background-color: #FFECEA;
+    color: #B90516;
+}
+
+.box-info {
+    background-color: #fbfbff;
+    color: #2C5C9D;
+} 

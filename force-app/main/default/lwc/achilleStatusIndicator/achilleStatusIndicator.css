@@ -34,11 +34,36 @@
 }
 
 .success-background {
-    background-color: #4bca81;
+    background-color: #4CAF50; /* vert */
+    color: white;
+}
+
+.warning-background {
+    background-color: #FF9800; /* orange */
+    color: white;
+}
+
+.danger-background {
+    background-color: #F44336; /* rouge */
     color: white;
 }
 
 .info-background {
-    background-color: #0070d2;
+    background-color: #808080; /* gris au lieu de bleu */
     color: white;
+}
+
+.icon-color-error {
+    --slds-c-icon-color-foreground-default: #B90516;
+    --slds-c-icon-color-foreground: #B90516;
+    --slds-g-color-neutral-base-30: #B90516;
+}
+
+.box-error {
+    background-color: #FFECEA;
+    color: #B90516;
 } 
+
+/*
+
+*/

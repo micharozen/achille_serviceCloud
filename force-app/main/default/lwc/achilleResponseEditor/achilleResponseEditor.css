@@ -1,0 +1,493 @@
+.achille-editor {
+    background: #f7efec;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 500px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.editor-header {
+    background: black;
+    padding: 0;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    position: relative;
+}
+
+.achille-logo {
+    position: absolute;
+    left: 20px;
+    height: 32px;
+    width: auto;
+    padding: 5px;
+    object-fit: contain;
+    margin: 2px 16px;
+}
+
+.tabs-container {
+    background: #000000;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 2px;
+    height: 36px;
+    align-items: flex-end;
+}
+
+.tab {
+    padding: 6px 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px 6px 0 0;
+    font-size: 0.813rem;
+    background: #f0f0f0;
+    color: #666;
+    transition: all 0.3s ease;
+    height: 30px;
+}
+
+.tab.active {
+    background: #ffffff;
+    color: #000;
+    height: 33px;
+}
+
+.editor-content {
+    padding: 1rem;
+    position: relative;
+    background-size: contain;
+    background-position: center;
+    min-height: 300px;
+    height: calc(100% - 48px);
+    overflow: visible;
+}
+
+/* Ajustement du panel d'enrichissement */
+.enrich-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    max-width: 800px;
+    width: 100%;
+    overflow: visible;
+}
+
+.input-container {
+    background: transparent;
+    padding: 0;
+    width: 100%;
+    z-index: 1;
+    margin-bottom: 0.75rem;
+    height: auto;
+}
+
+/* Style pour la zone de texte */
+.custom-input {
+    height: 120px;
+}
+
+.custom-input textarea {
+    min-height: 120px !important;
+    padding: 12px;
+    line-height: 1.5;
+    font-size: 15px;
+    border-radius: 4px;
+    resize: none;
+}
+
+/* Ajustement du label */
+.input-container .slds-form-element__label {
+    font-size: 16px;
+    color: #8b7355;
+    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: 0.2px;
+}
+
+.conversation-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow-y: visible;
+}
+
+.messages-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-text {
+    background-color: #f3f3f3;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    padding: 0.75rem;
+    position: relative;
+    padding-bottom: 24px; /* Espace pour le timestamp */
+}
+
+.enriched-response {
+    background-color: #e8f4ff;
+    border-radius: 4px;
+    border-left: 3px solid #76dac6;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 24px; /* Espace pour le timestamp */
+}
+
+.enriched-response lightning-formatted-rich-text {
+    display: block;
+    min-height: 80px;
+    margin-top: 0.5rem;
+}
+
+.action-buttons {
+    position: relative;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.action-button {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.action-button:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 8px;
+}
+
+.button-group button.enrich {
+    background-color: #12b393;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 13px;
+    padding: 2px 16px;
+    line-height: 24px;
+    height: 28px;
+}
+
+.button-group button.cancel {
+    background-color: snow;
+    border: 1px solid #c8dcd7;
+}
+
+.content-section {
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.panel {
+    border: 1px solid #bfc1c8;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    background: #f7efec;
+    min-height: 100px;
+}
+
+.answer-panel {
+    border-left: 3px solid #76dac6;
+}
+
+.info-panel {
+    border-left: 3px solid #76aada;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.25rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    color: white;
+    margin: 0.5rem 0;
+}
+
+.tag.success {
+    background: #5acda1;
+}
+
+.tag.error {
+    background: #cd5a5a;
+}
+
+/* Modification du spinner */
+.spinner-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.spinner-text {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Animation pour les messages */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.enriched-response::before {
+    content: "✨";
+    position: absolute;
+    left: -20px;
+    opacity: 0;
+    animation: fadeIn 0.3s ease-out 0.2s forwards;
+}
+
+.action-icon {
+    --sds-c-icon-color-foreground-default: currentColor;
+}
+
+/* Media queries pour différentes tailles d'écran */
+@media screen and (max-width: 768px) {
+    .enrich-panel {
+        width: 95%;
+        margin: 0.5rem auto;
+    }
+    
+    .tab {
+        min-width: 80px;
+        padding: 8px 12px;
+        font-size: 11px;
+    }
+    
+    .editor-content {
+        padding: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .achille-logo {
+        width: 80px;
+        height: 24px;
+    }
+    
+    .tab {
+        min-width: 70px;
+        padding: 8px 8px;
+        font-size: 10px;
+    }
+}
+
+.conversation-history {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.conversation-history .slds-box {
+    background-color: #f3f3f3;
+    border-radius: 4px;
+}
+
+.slds-p-bottom_medium {
+    position: relative;
+}
+
+.suggestion-container {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.achille-avatar {
+    width: 48px;
+    height: 48px;
+}
+
+.suggestion-title {
+    font-size: 1.2rem;
+    color: #2d2d2d;
+    margin: 0;
+}
+
+.suggestion-content {
+    background: #f8f8f8;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-left: 4px solid #86d9c2;
+}
+
+.suggestion-text {
+    white-space: pre-wrap;
+    color: #444;
+    line-height: 1.5;
+}
+
+.suggestion-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.status-badge {
+    background: #86d9c2;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.suggestion-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.cancel-button, .copy-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.cancel-button {
+    background: white;
+    border: 1px solid #d8d8d8;
+    color: #444;
+}
+
+.copy-button {
+    background: #4087f1;
+    color: white;
+}
+
+.button-icon {
+    --sds-c-icon-color-foreground-default: currentColor;
+}
+
+/* Style du conteneur principal */
+.content-container {
+    background-color: rgba(255, 255, 255, 0.65);
+    border-radius: 8px;
+    padding: 12px 0;
+    height: auto;
+    min-height: 100%;
+}
+
+/* Nouveau style pour le contenu */
+.body-container {
+    background-image: var(--achille-bg-url);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: calc(100% - 48px);
+    padding: 12px;
+    overflow-y: auto;
+}
+
+/* Style de la zone de texte */
+.slds-form-element__control {
+    margin-bottom: 0;
+}
+
+.message-timestamp {
+    position: absolute;
+    bottom: 4px;
+    right: 8px;
+    font-size: 11px;
+    color: #666;
+}
+
+/* Style du label */
+.input-label {
+    font-size: 16px;
+    color: #8b7355;
+    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: 0.2px;
+    display: block;
+}
+
+/* Style de la zone de texte */
+.custom-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+    resize: none;
+    background-color: white;
+    margin-bottom: 8px;
+}
+
+.custom-textarea:focus {
+    outline: none;
+    border-color: #76dac6;
+    box-shadow: 0 0 0 1px #76dac6;
+} 
