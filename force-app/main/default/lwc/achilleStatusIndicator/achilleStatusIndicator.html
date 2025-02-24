@@ -1,13 +1,9 @@
 <template>
     <lightning-card>
         <div slot="title">
-            <div class="slds-media slds-media_center">
-                <div class="slds-media__figure">
-                    <img src={achilleLogo} alt="Achille Logo" class="achille-logo"/>
-                </div>
-                <div class="slds-media__body">
-                    <h2 class="slds-card__header-title">Achille AI</h2>
-                </div>
+            <div class="header-container">
+                <img src={achilleLogo} alt="Achille Logo" class="achille-logo"/>
+                <span class="title">Achille AI</span>
             </div>
         </div>
 
@@ -46,10 +42,12 @@
                     <!-- AISAT -->
                     <div class="slds-col slds-size_1-of-2 slds-p-bottom_medium">
                         <div class="indicator-box">
-                            <div class="indicator-icon">
-                                <img src={achilleAisat} alt="AISAT Icon" class="custom-icon"/>
+                            <div class="indicator-header">
+                                <div class="indicator-icon">
+                                    <img src={achilleAisat} alt="AISAT Icon" class="custom-icon"/>
+                                </div>
+                                <div class="indicator-label">AISAT</div>
                             </div>
-                            <div class="indicator-label">AISAT</div>
                             <div class={aisatClass}>
                                 {aisatValue}
                             </div>
@@ -59,10 +57,12 @@
                     <!-- Priorité -->
                     <div class="slds-col slds-size_1-of-2 slds-p-bottom_medium">
                         <div class="indicator-box">
-                            <div class="indicator-icon">
-                                <img src={achillePriority} alt="Priority Icon" class="custom-icon"/>
+                            <div class="indicator-header">
+                                <div class="indicator-icon">
+                                    <img src={achillePriority} alt="Priority Icon" class="custom-icon"/>
+                                </div>
+                                <div class="indicator-label">Priorité</div>
                             </div>
-                            <div class="indicator-label">Priorité</div>
                             <div class={priorityClass}>
                                 {priorityValue}
                             </div>
@@ -72,10 +72,12 @@
                     <!-- Message -->
                     <div class="slds-col slds-size_1-of-2">
                         <div class="indicator-box">
-                            <div class="indicator-icon">
-                                <lightning-icon icon-name="utility:chat" size="medium"></lightning-icon>
+                            <div class="indicator-header">
+                                <div class="indicator-icon">
+                                    <lightning-icon icon-name="utility:chat" size="small"></lightning-icon>
+                                </div>
+                                <div class="indicator-label">Message</div>
                             </div>
-                            <div class="indicator-label">Message</div>
                             <div class={messageStatusClass}>
                                 {messageStatus}
                             </div>
@@ -85,10 +87,12 @@
                     <!-- Client -->
                     <div class="slds-col slds-size_1-of-2">
                         <div class="indicator-box">
-                            <div class="indicator-icon">
-                                <lightning-icon icon-name="utility:user" size="medium"></lightning-icon>
+                            <div class="indicator-header">
+                                <div class="indicator-icon">
+                                    <lightning-icon icon-name="utility:user" size="small"></lightning-icon>
+                                </div>
+                                <div class="indicator-label">Client</div>
                             </div>
-                            <div class="indicator-label">Client</div>
                             <div class={clientStatusClass}>
                                 {clientStatus}
                             </div>
