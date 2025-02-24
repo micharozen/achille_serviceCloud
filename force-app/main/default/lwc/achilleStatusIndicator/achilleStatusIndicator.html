@@ -1,105 +1,107 @@
 <template>
     <lightning-card>
-        <div slot="title">
-            <div class="header-container">
-                <img src={achilleLogo} alt="Achille Logo" class="achille-logo"/>
-                <span class="title">Achille AI</span>
+        <div class="component-container">
+            <div slot="title">
+                <div class="header-container">
+                    <img src={achilleLogo} alt="Achille Logo" class="achille-logo"/>
+                    <span class="title">Achille AI</span>
+                </div>
             </div>
+
+            <!-- Notification d'erreur API -->
+            <template if:true={showApiKeyError}>
+                <div class="slds-card">
+                    <div class="slds-p-around_xx-small slds-box slds-m-around_x-small box-error">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-12 slds-m-left_x-small slds-align_absolute-center">
+                                <lightning-icon 
+                                    class="icon-color-error" 
+                                    icon-name="utility:error">
+                                </lightning-icon>
+                            </div>
+                            <div class="slds-col slds-size_11-of-12">
+                                <div class="slds-grid slds-grid_vertical">
+                                    <div class="slds-col">
+                                        <p><b>Erreur de configuration</b></p>
+                                    </div>
+                                    <div class="slds-col slds-p-around_xx-small">
+                                        <lightning-formatted-rich-text 
+                                            value="La clé API Achille n'est pas valide. Veuillez vérifier votre configuration dans les métadonnées personnalisées.">
+                                        </lightning-formatted-rich-text>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Contenu principal -->
+            <template if:false={showApiKeyError}>
+                <div class="slds-p-around_medium">
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <!-- AISAT -->
+                        <div class="slds-col slds-size_1-of-2 slds-p-bottom_medium">
+                            <div class="indicator-box">
+                                <div class="indicator-header">
+                                    <div class="indicator-icon">
+                                        <img src={achilleAisat} alt="AISAT Icon" class="custom-icon"/>
+                                    </div>
+                                    <div class="indicator-label">AISAT</div>
+                                </div>
+                                <div class={aisatClass}>
+                                    {aisatValue}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Priorité -->
+                        <div class="slds-col slds-size_1-of-2 slds-p-bottom_medium">
+                            <div class="indicator-box">
+                                <div class="indicator-header">
+                                    <div class="indicator-icon">
+                                        <img src={achillePriority} alt="Priority Icon" class="custom-icon"/>
+                                    </div>
+                                    <div class="indicator-label">Priorité</div>
+                                </div>
+                                <div class={priorityClass}>
+                                    {priorityValue}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Message -->
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="indicator-box">
+                                <div class="indicator-header">
+                                    <div class="indicator-icon">
+                                        <lightning-icon icon-name="utility:chat" size="small"></lightning-icon>
+                                    </div>
+                                    <div class="indicator-label">Message</div>
+                                </div>
+                                <div class={messageStatusClass}>
+                                    {messageStatus}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Client -->
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="indicator-box">
+                                <div class="indicator-header">
+                                    <div class="indicator-icon">
+                                        <lightning-icon icon-name="utility:user" size="small"></lightning-icon>
+                                    </div>
+                                    <div class="indicator-label">Client</div>
+                                </div>
+                                <div class={clientStatusClass}>
+                                    {clientStatus}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
         </div>
-
-        <!-- Notification d'erreur API -->
-        <template if:true={showApiKeyError}>
-            <div class="slds-card">
-                <div class="slds-p-around_xx-small slds-box slds-m-around_x-small box-error">
-                    <div class="slds-grid slds-gutters">
-                        <div class="slds-col slds-size_1-of-12 slds-m-left_x-small slds-align_absolute-center">
-                            <lightning-icon 
-                                class="icon-color-error" 
-                                icon-name="utility:error">
-                            </lightning-icon>
-                        </div>
-                        <div class="slds-col slds-size_11-of-12">
-                            <div class="slds-grid slds-grid_vertical">
-                                <div class="slds-col">
-                                    <p><b>Erreur de configuration</b></p>
-                                </div>
-                                <div class="slds-col slds-p-around_xx-small">
-                                    <lightning-formatted-rich-text 
-                                        value="La clé API Achille n'est pas valide. Veuillez vérifier votre configuration dans les métadonnées personnalisées.">
-                                    </lightning-formatted-rich-text>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </template>
-
-        <!-- Contenu principal -->
-        <template if:false={showApiKeyError}>
-            <div class="slds-p-around_medium">
-                <div class="slds-grid slds-wrap slds-gutters">
-                    <!-- AISAT -->
-                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_medium">
-                        <div class="indicator-box">
-                            <div class="indicator-header">
-                                <div class="indicator-icon">
-                                    <img src={achilleAisat} alt="AISAT Icon" class="custom-icon"/>
-                                </div>
-                                <div class="indicator-label">AISAT</div>
-                            </div>
-                            <div class={aisatClass}>
-                                {aisatValue}
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Priorité -->
-                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_medium">
-                        <div class="indicator-box">
-                            <div class="indicator-header">
-                                <div class="indicator-icon">
-                                    <img src={achillePriority} alt="Priority Icon" class="custom-icon"/>
-                                </div>
-                                <div class="indicator-label">Priorité</div>
-                            </div>
-                            <div class={priorityClass}>
-                                {priorityValue}
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Message -->
-                    <div class="slds-col slds-size_1-of-2">
-                        <div class="indicator-box">
-                            <div class="indicator-header">
-                                <div class="indicator-icon">
-                                    <lightning-icon icon-name="utility:chat" size="small"></lightning-icon>
-                                </div>
-                                <div class="indicator-label">Message</div>
-                            </div>
-                            <div class={messageStatusClass}>
-                                {messageStatus}
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Client -->
-                    <div class="slds-col slds-size_1-of-2">
-                        <div class="indicator-box">
-                            <div class="indicator-header">
-                                <div class="indicator-icon">
-                                    <lightning-icon icon-name="utility:user" size="small"></lightning-icon>
-                                </div>
-                                <div class="indicator-label">Client</div>
-                            </div>
-                            <div class={clientStatusClass}>
-                                {clientStatus}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </template>
     </lightning-card>
 </template> 

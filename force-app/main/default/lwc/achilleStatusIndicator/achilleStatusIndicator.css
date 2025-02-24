@@ -1,3 +1,9 @@
+.component-container {
+    max-width: 1200px;  /* ou la largeur maximale souhaitée */
+    margin: 0 auto;
+    width: 100%;
+}
+
 .header-container {
     display: flex;
     align-items: center;
@@ -95,7 +101,7 @@
     --sds-c-icon-color-foreground-default: #514f4d;  /* Même couleur que le texte */
 }
 
-/* Ajuster le padding du conteneur principal pour l'alignement */
+/* Ajuster le padding du conteneur principal */
 .slds-p-around_medium {
     padding: 1rem 0.75rem;
 }
