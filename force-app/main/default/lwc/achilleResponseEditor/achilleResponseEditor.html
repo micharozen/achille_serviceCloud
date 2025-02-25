@@ -1,141 +1,141 @@
 <template>
     <div class="achille-editor">
-        <!-- Header avec logo et onglets -->
-        <div class="editor-header">
-            <img src={achilleLogo} alt="Achille Logo" class="achille-logo"/>
-            <div class="tabs-container">
-                <img src={achilleLogo} alt="Achille" class="achille-logo"/>
-                <button 
-                    class={autoResponseTabClass} 
-                    onclick={handleAutoResponseTab}>
-                    Suggestion
-                </button>
-                <button 
-                    class={enrichTabClass} 
-                    onclick={handleEnrichTab}>
-                    Enrichir
-                </button>
+        <!-- Title bar avec logo et onglets -->
+        <div class="title-bar">
+            <!-- Onglets à gauche -->
+            <div class={autoResponseTabClass} onclick={handleAutoResponseTab}>
+                Suggestion
+            </div>
+            <div class={enrichTabClass} onclick={handleEnrichTab}>
+                Enrichir
+            </div>
+            <!-- Logo à droite -->
+            <div class="logo-container">
+                <img src={achilleLogo} alt="Achille Logo" class="logo-image"/>
             </div>
         </div>
 
-        <div class="body-container" style={backgroundStyle}>
-            <div class="content-container">
+        <div class="panel-main" style="background-image: url({achilleBackground})">
+            <div class="panel-gradient">
+                <div class="warrior-container">
+                    <img src={achilleWarrior} alt="Achille Warrior" class="warrior-image"/>
+                </div>
+
                 <!-- Contenu principal -->
-                <div class="editor-content">
+                <div class={mainPanelAutoRespClass}>
                     <!-- Panel Réponse -->
                     <template if:true={showAnswer}>
-                        <div class="suggestion-container">
-                            <div class="suggestion-header">
-                                <img src={achilleLogo} alt="Achille" class="achille-avatar"/>
-                                <h2 class="suggestion-title">La suggestion d'Achille :</h2>
+                        <div class="frame-answer">
+                            <div class="title">
+                                La suggestion d'Achille :
                             </div>
-                            <div class="suggestion-content">
-                                <div class="suggestion-text">{answerContent}</div>
+                            <div class="panel panel-answer">
+                                <div class="text-msg">
+                                    <lightning-formatted-rich-text
+                                        value={answerContent}
+                                    ></lightning-formatted-rich-text>
+                                </div>
                             </div>
-                            <div class="suggestion-footer">
-                                <div class="suggestion-status">
-                                    <span class="status-badge">Suggestion valide</span>
-                                </div>
-                                <div class="suggestion-actions">
-                                    <button class="cancel-button" onclick={handleCancel}>
-                                        <lightning-icon icon-name="utility:close" size="x-small" class="button-icon"></lightning-icon>
-                                        Annuler
-                                    </button>
-                                    <button class="copy-button" onclick={handleCopy} data-text={answerContent}>
-                                        <lightning-icon icon-name="utility:copy_to_clipboard" size="x-small" class="button-icon"></lightning-icon>
-                                        Copier dans l'éditeur
-                                    </button>
-                                </div>
+                            <div class="panel-tag success">Suggestion valide</div>
+                            <div class="panel-button">
+                                <button class="button" onclick={handleCancel}>✗ Annuler</button>
+                                <button class="button ok" onclick={handleCopy} data-text={answerContent} data-formatted="false">▽ Copier le texte</button>
+                                <button class="button ok" onclick={handleCopy} data-text={answerContent} data-formatted="true">▽ Copier avec formatage</button>
                             </div>
                         </div>
                     </template>
 
                     <!-- Panel Info -->
                     <template if:true={showInfo}>
-                        <div class="content-section">
-                            <div class="section-title">Information :</div>
-                            <div class="panel info-panel">
-                                <div class="panel-content">{infoContent}</div>
+                        <div class="frame-info">
+                            <div class="title">
+                                Information :
+                            </div>
+                            <div class="panel panel-info compact">
+                                <div class="text-msg">
+                                    <lightning-formatted-rich-text
+                                        value={infoContent}
+                                    ></lightning-formatted-rich-text>
+                                </div>
                             </div>
                             <template if:true={infoTag}>
                                 <div class={tagClass}>{infoTag}</div>
                             </template>
-                            <div class="button-group">
-                                <button class="slds-button slds-button_neutral" onclick={handleClose}>Fermer</button>
+                            <div class="panel-button">
+                                <button class="button" onclick={handleClose}>✗ Fermer</button>
                             </div>
-                        </div>
-                    </template>
-
-                    <!-- Panel Enrichissement -->
-                    <template if:true={showTransText}>
-                        <div class="enrich-panel">
-                            <!-- Zone de texte en haut -->
-                            <div class="input-container">
-                                <div class="slds-form-element">
-                                    <label class="input-label">Saisir votre réponse pour l'enrichir :</label>
-                                    <textarea 
-                                        class="custom-textarea"
-                                        value={userText}
-                                        onchange={handleUserTextChange}
-                                    ></textarea>
-                                    <div class="button-group">
-                                        <button class="slds-button enrich" onclick={handleEnrichText}>
-                                            ✦ Enrichir avec Achille
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Historique des réponses en dessous -->
-                            <div class="conversation-container">
-                                <div if:true={enrichedResponses.length} class="messages-container">
-                                    <template for:each={enrichedResponses} for:item="response">
-                                        <div key={response.timestamp} class="slds-p-bottom_medium">
-                                            <div class="slds-box user-text">
-                                                <p class="slds-text-body_regular">
-                                                    {response.userText}
-                                                </p>
-                                                <div class="message-timestamp">
-                                                    {response.formattedTimestamp}
-                                                </div>
-                                            </div>
-                                            <div class="slds-box enriched-response">
-                                                <lightning-formatted-rich-text
-                                                    value={response.enrichedText}
-                                                ></lightning-formatted-rich-text>
-                                                <div class="message-timestamp">
-                                                    {response.formattedTimestamp}
-                                                </div>
-                                                <div class="action-buttons">
-                                                    <button 
-                                                        class="action-button" 
-                                                        onclick={handleCopy} 
-                                                        data-text={response.enrichedText}
-                                                        title="Copier la réponse"
-                                                    >
-                                                        <lightning-icon
-                                                            icon-name="utility:copy"
-                                                            size="x-small"
-                                                            class="action-icon"
-                                                        ></lightning-icon>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </template>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-
-                    <!-- Spinner -->
-                    <template if:true={showSpinner}>
-                        <div class="spinner-container">
-                            <lightning-spinner alternative-text="Chargement" size="medium"></lightning-spinner>
-                            <div class="spinner-text">Patience, Achille travaille pour vous...</div>
                         </div>
                     </template>
                 </div>
+
+                <!-- Panel Enrichissement -->
+                <div class={mainPanelTransTextClass}>
+                    <div class="title">
+                        Saisir votre réponse pour l'enrichir :
+                    </div>
+                    <div class="panel">
+                        <textarea 
+                            value={userText}
+                            onchange={handleUserTextChange}
+                        ></textarea>
+                        
+                        <!-- Affichage des réponses enrichies directement sous la textarea -->
+                        <template if:true={hasEnrichedResponse}>
+                            <div class="enriched-response-section">
+                                <div class="user-original-text">
+                                    <div class="original-text-label">Votre texte original :</div>
+                                    <div class="original-text-content">{userText}</div>
+                                </div>
+                                <div class="enriched-response-content">
+                                    <lightning-formatted-rich-text
+                                        value={lastEnrichedResponse.enrichedText}
+                                    ></lightning-formatted-rich-text>
+                                </div>
+                                <div class="response-actions">
+                                    <button 
+                                        class="button ok" 
+                                        onclick={handleCopy} 
+                                        data-text={lastEnrichedResponse.enrichedText}
+                                        data-formatted="false"
+                                    >
+                                        ✦ Utiliser cette réponse
+                                    </button>
+                                    <button 
+                                        class="button ok" 
+                                        onclick={handleCopy} 
+                                        data-text={lastEnrichedResponse.enrichedText}
+                                        data-formatted="true"
+                                    >
+                                        ✦ Utiliser avec formatage
+                                    </button>
+                                </div>
+                                <div class="response-timestamp">
+                                    {lastEnrichedResponse.formattedTimestamp}
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <div class="panel-button">
+                        <button class="button" onclick={handleCancel}>✗ Annuler</button>
+                        <button class="button ok" onclick={handleEnrichText}>✦ Enrichir avec Achille</button>
+                    </div>
+                    
+                    <!-- Affichage des erreurs -->
+                    <template if:true={showError}>
+                        <div class="error-message">
+                            <lightning-formatted-rich-text
+                                value={errorMessage}
+                            ></lightning-formatted-rich-text>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Spinner -->
+                <template if:true={showSpinner}>
+                    <div class="spinner-container">
+                        <img src={achilleLoader} alt="Loading..." class="spinner-image"/>
+                    </div>
+                </template>
             </div>
         </div>
     </div>

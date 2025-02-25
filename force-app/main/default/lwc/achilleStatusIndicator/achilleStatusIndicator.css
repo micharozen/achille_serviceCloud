@@ -18,8 +18,13 @@
 }
 
 .custom-icon {
-    height: 16px;
-    width: 16px;
+    height: 20px;
+    width: 20px;
+    filter: brightness(0) invert(1);
+}
+
+.status-icon.custom-icon {
+    margin-right: 4px;
 }
 
 .indicator-box {
@@ -45,10 +50,14 @@
 .indicator-label {
     font-size: 0.875rem;
     color: #514f4d;
+    font-weight: 600;
 }
 
-.indicator-value {
-    text-align: center;
+.indicator-value, .success-background, .warning-background, .danger-background, .info-background {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     padding: 0.2rem 0.75rem;
     border-radius: 1rem;
     font-weight: bold;
@@ -112,4 +121,8 @@
     --sds-c-card-spacing-block-end: 0;
     --sds-c-card-spacing-inline-start: 0;
     --sds-c-card-spacing-inline-end: 0;
+}
+
+.status-icon {
+    --sds-c-icon-color-foreground-default: currentColor;
 }

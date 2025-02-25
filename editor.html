@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<!--=========================================== #
+#                                               #
+# Copyright © 2024 JC`zic (Jean-Christophe Bos) #
+#             jczic.bos@gmail.com               #
+#                                               #
+# ============================================-->
+
+    <head>
+
+        <meta charset="utf-8" />
+
+        <meta http-equiv="Content-Type"    content="text/html; charset=UTF-8" />
+        <meta http-equiv="Cache-Control"   content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma"          content="no-cache" />
+        <meta http-equiv="Expires"         content="0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
+        <base target="_blank">
+
+        <title>Achille.ai</title>
+
+        <link rel="stylesheet" type="text/css" href="styles/style.css" />
+
+        <script async src="https://cdn.freshdev.io/assets/app-client@2.js"></script>
+        <script defer src="scripts/app.js"></script>
+        <script defer src="scripts/editor.js"></script>
+
+    </head>
+
+    <body>
+
+        <div class="title-bar">
+            <div id="logo"></div>
+            <div id="tab-autoresp" class="tab" onclick="selectTab(this);">
+                Réponse auto
+            </div>
+            <div id="tab-transtext" class="tab" onclick="selectTabTransText(this);">
+                Enrichir
+            </div>
+        </div>
+
+        <div class="panel-main bg-stars">
+            <div class="panel-gradient">
+
+                <div id="img-achille">
+                </div>
+
+                <div id="mainpanel-autoresp" class="mainpanel">
+                    <div id="frame-answer">
+                        <div class="title">
+                            La suggestion d'Achille :
+                        </div>
+                        <div id="panel-answer" class="panel">
+                            <div id="text-answer" class="text-msg"></div>
+                        </div>
+                        <div class="panel-tag success">Suggestion valide</div>
+                        <div class="panel-button">
+                            <button class="button" onclick="closeApp();">✗ Annuler</button>
+                            <button class="button ok" onclick="copyAnswer();">✦ Utiliser dans la réponse</button>
+                        </div>
+                    </div>
+                    <div id="frame-info">
+                        <div class="title">
+                            Information :
+                        </div>
+                        <div id="panel-info" class="panel">
+                            <div id="text-info" class="text-msg"></div>
+                        </div>
+                        <div id="text-tag-info" class="panel-tag"></div>
+                        <div class="panel-button">
+                            <button class="button" onclick="closeApp();">✗ Fermer</button>
+                        </div>
+                    </div>
+                    <div id="frame-error">
+                        <div class="title">
+                            Achille rencontre un problème :
+                        </div>
+                        <div id="panel-error" class="panel">
+                            <div id="text-error" class="text-msg"></div>
+                        </div>
+                        <div class="panel-button">
+                            <button class="button" onclick="closeApp();">✗ Fermer</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="mainpanel-transtext" class="mainpanel">
+                    <div class="title">
+                        Saisir votre réponse pour la corriger et l'enrichir :
+                    </div>
+                    <div class="panel">
+                        <textarea id="textarea-transtext"></textarea>
+                    </div>
+                    <div class="panel-button">
+                        <button class="button" onclick="closeApp();">✗ Annuler</button>
+                        <button class="button ok" onclick="transformsText();">✦ Enrichir avec Achille</button>
+                    </div>
+                </div>
+
+                <div id="spinner"></div>
+    
+            </div>
+        </div>
+  
+    </body>
+
+</html>
+

@@ -44,13 +44,11 @@
                         <div class="slds-col slds-size_1-of-2 slds-p-bottom_medium">
                             <div class="indicator-box">
                                 <div class="indicator-header">
-                                    <div class="indicator-icon">
-                                        <img src={achilleAisat} alt="AISAT Icon" class="custom-icon"/>
-                                    </div>
                                     <div class="indicator-label">AISAT</div>
                                 </div>
                                 <div class={aisatClass}>
-                                    {aisatValue}
+                                    <img src={achilleAisat} alt="AISAT Icon" class="status-icon custom-icon"/>
+                                    <span>{aisatValue}</span>
                                 </div>
                             </div>
                         </div>
@@ -59,13 +57,11 @@
                         <div class="slds-col slds-size_1-of-2 slds-p-bottom_medium">
                             <div class="indicator-box">
                                 <div class="indicator-header">
-                                    <div class="indicator-icon">
-                                        <img src={achillePriority} alt="Priority Icon" class="custom-icon"/>
-                                    </div>
                                     <div class="indicator-label">Priorité</div>
                                 </div>
                                 <div class={priorityClass}>
-                                    {priorityValue}
+                                    <img src={achillePriority} alt="Priority Icon" class="status-icon custom-icon"/>
+                                    <span>{priorityValue}</span>
                                 </div>
                             </div>
                         </div>
@@ -74,13 +70,11 @@
                         <div class="slds-col slds-size_1-of-2">
                             <div class="indicator-box">
                                 <div class="indicator-header">
-                                    <div class="indicator-icon">
-                                        <lightning-icon icon-name="utility:chat" size="small"></lightning-icon>
-                                    </div>
                                     <div class="indicator-label">Message</div>
                                 </div>
                                 <div class={messageStatusClass}>
-                                    {messageStatus}
+                                    <lightning-icon icon-name="utility:chat" size="small" class="status-icon"></lightning-icon>
+                                    <span>{messageStatus}</span>
                                 </div>
                             </div>
                         </div>
@@ -89,13 +83,11 @@
                         <div class="slds-col slds-size_1-of-2">
                             <div class="indicator-box">
                                 <div class="indicator-header">
-                                    <div class="indicator-icon">
-                                        <lightning-icon icon-name="utility:user" size="small"></lightning-icon>
-                                    </div>
                                     <div class="indicator-label">Client</div>
                                 </div>
                                 <div class={clientStatusClass}>
-                                    {clientStatus}
+                                    <lightning-icon icon-name="utility:user" size="small" class="status-icon"></lightning-icon>
+                                    <span>{clientStatus}</span>
                                 </div>
                             </div>
                         </div>
