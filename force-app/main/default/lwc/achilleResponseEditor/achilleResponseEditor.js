@@ -246,13 +246,10 @@ export default class AchilleResponseEditor extends NavigationMixin(LightningElem
     adjustTextareaHeight() {
         // Utiliser setTimeout pour s'assurer que le DOM est mis à jour
         setTimeout(() => {
-            const textarea = this.template.querySelector('textarea');
+            const textarea = this.template.querySelector('.panel-input textarea');
             if (textarea) {
-                if (this.hasEnrichedResponse) {
-                    textarea.style.maxHeight = '150px';
-                } else {
-                    textarea.style.maxHeight = '200px';
-                }
+                // Hauteur fixe pour la zone de texte dans la nouvelle structure
+                textarea.style.maxHeight = '120px';
             }
         }, 0);
     }
@@ -389,5 +386,60 @@ export default class AchilleResponseEditor extends NavigationMixin(LightningElem
     renderedCallback() {
         // Ajuster la hauteur de la textarea
         this.adjustTextareaHeight();
+        // Mettre à jour la hauteur du panneau pour le positionnement du tag
+        this.updatePanelHeight();
+    }
+
+    updatePanelHeight() {
+        // Trouver le panneau actif
+        const panel = this.template.querySelector('.panel-info') || this.template.querySelector('.panel-answer');
+        if (panel) {
+            // Obtenir la hauteur réelle du contenu
+            const contentHeight = panel.scrollHeight;
+            // Définir la variable CSS personnalisée sur le panneau lui-même
+            panel.style.setProperty('--panel-height', `${contentHeight}px`);
+            
+            // Définir également la variable sur les éléments parents pour assurer la propagation
+            const frameElement = panel.closest('.frame-info') || panel.closest('.frame-answer');
+            if (frameElement) {
+                frameElement.style.setProperty('--panel-height', `${contentHeight}px`);
+            }
+            
+            // Définir la variable au niveau du conteneur principal pour assurer l'accessibilité globale
+            const mainPanel = this.template.querySelector('.panel-main');
+            if (mainPanel) {
+                mainPanel.style.setProperty('--panel-height', `${contentHeight}px`);
+            }
+        }
+        
+        // Vérifier également le panneau enrichi
+        const enrichedPanel = this.template.querySelector('.panel-enriched');
+        if (enrichedPanel) {
+            // S'assurer que le panneau enrichi n'a pas de hauteur maximale fixe
+            enrichedPanel.style.maxHeight = 'none';
+            enrichedPanel.style.overflow = 'visible';
+            
+            // Ajuster la position des boutons en fonction de la hauteur du panneau
+            const responseActions = this.template.querySelector('.response-actions');
+            if (responseActions) {
+                responseActions.style.marginTop = '10px';
+            }
+        }
+        
+        // Ajuster également la position des titres dans l'onglet Enrichir
+        const enrichTitle = this.template.querySelector('.enrich-title');
+        if (enrichTitle) {
+            // S'assurer que le titre est bien visible
+            enrichTitle.style.display = 'block';
+        }
+        
+        // Ajuster la hauteur des conteneurs flex
+        const enrichContainers = this.template.querySelectorAll('.enrich-container');
+        if (enrichContainers.length > 0) {
+            enrichContainers.forEach(container => {
+                // S'assurer que le conteneur est bien visible
+                container.style.display = 'flex';
+            });
+        }
     }
 } 

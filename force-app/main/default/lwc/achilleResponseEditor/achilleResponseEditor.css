@@ -3,13 +3,13 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 
 .panel-main {
     width: 100%;
     height: 100%;
+    overflow-y: auto;
 }
 
 .bg-stars {
@@ -18,7 +18,7 @@
 
 .panel-gradient {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     background-image: linear-gradient(to bottom, #FFFFFF00 25%, white 80%);
 }
 
@@ -100,6 +100,23 @@
     font-size: 13px;
     font-weight: 400;
     color: #303030;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* Style spécifique pour le titre de l'onglet Enrichir */
+.enrich-input-title {
+    position: relative;
+    left: 100px;
+    top: 20px;
+    margin-bottom: 40px; /* Augmenter l'espace entre le titre et la zone de texte */
+    display: block;
+    z-index: 2; /* S'assurer que le titre est au-dessus des autres éléments */
+}
+
+.mainpanel.active .title {
+    display: block;
+    margin-bottom: 30px;
 }
 
 .panel {
@@ -122,6 +139,14 @@
     box-shadow: 1px 2px 7px 0px #AAAAAA22;
 }
 
+/* Styles spécifiques pour les panneaux dans les conteneurs flex */
+.enrich-container .panel {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+}
+
 .panel-answer {
     border-left: 3px solid #76dac6;
     color: #1A1A1A;
@@ -137,7 +162,7 @@
 .panel-tag {
     position: absolute;
     left: 100px;
-    top: calc(80px + min(var(--panel-height, 100px), 200px) + 1px); /* Positionnement dynamique basé sur la hauteur du panneau */
+    top: calc(80px + var(--panel-height, 200px) + 10px); /* Positionnement en dessous du panneau */
     height: 20px;
     padding: 0 12px;
     font-size: 10.5px;
@@ -149,6 +174,7 @@
     border-radius: 15px;
     cursor: default;
     box-shadow: 1px 2px 5px 0px #33333333;
+    z-index: 1; /* Assurer que le tag est au-dessus */
 }
 
 .panel-tag.success {
@@ -166,8 +192,19 @@
 .panel-button {
     position: absolute;
     right: 20px;
-    top: calc(80px + min(var(--panel-height, 100px), 200px) + 1px + 30px); /* Ajuster la position des boutons en fonction du tag */
+    top: calc(80px + var(--panel-height, 200px) + 40px); /* Positionnement en dessous du tag */
     height: 36px;
+    text-align: right;
+    z-index: 1; /* Assurer que les boutons sont au-dessus */
+}
+
+/* Styles spécifiques pour les boutons dans les conteneurs flex */
+.enrich-container .panel-button {
+    position: relative;
+    top: auto;
+    right: auto;
+    height: auto;
+    margin-top: 10px;
     text-align: right;
 }
 
@@ -867,15 +904,13 @@ textarea {
 }
 
 .enriched-response-content {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 1.5px;
-    line-height: 17px;
+    line-height: 16px;
     color: #1A1A1A;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-left: 3px solid #76dac6;
-    border-radius: 3px;
-    margin-bottom: 5px;
+    padding: 0;
+    margin-bottom: 4px;
+    overflow: visible;
 }
 
 /* Style pour le texte original de l'utilisateur */
@@ -957,15 +992,13 @@ textarea {
 }
 
 .enriched-response-content {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 1.5px;
-    line-height: 17px;
+    line-height: 16px;
     color: #1A1A1A;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-left: 3px solid #76dac6;
-    border-radius: 3px;
-    margin-bottom: 5px;
+    padding: 0;
+    margin-bottom: 4px;
+    overflow: visible;
 }
 
 .response-actions {
@@ -994,4 +1027,158 @@ textarea {
 
 .frame-info .panel-button {
     position: absolute;
+}
+
+.panel-input {
+    top: 80px;
+    min-height: 80px;
+    max-height: 120px;
+}
+
+.input-buttons {
+    top: calc(80px + 120px + 10px);
+}
+
+.panel-enriched {
+    border-left: 3px solid #76dac6;
+    color: #1A1A1A;
+    overflow: visible;
+    max-height: none;
+}
+
+.enriched-title {
+    position: relative;
+    left: 100px;
+    top: 20px;
+    line-height: 25px;
+    letter-spacing: 1.5px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #303030;
+    margin-bottom: 30px;
+    display: block;
+    margin-top: 0;
+}
+
+.response-title {
+    top: calc(80px + 120px + 10px + 40px);
+}
+
+.enriched-response-content {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    line-height: 16px;
+    color: #1A1A1A;
+    padding: 0;
+    margin-bottom: 4px;
+}
+
+.response-actions {
+    text-align: right;
+    margin: 8px 0;
+}
+
+.response-timestamp {
+    font-size: 9px;
+    color: #666;
+    text-align: right;
+    margin-top: 4px;
+}
+
+/* Ajuster la hauteur de la textarea quand il n'y a pas de réponse enrichie */
+.panel-input textarea {
+    width: 100%;
+    height: auto;
+    min-height: 80px;
+    max-height: 120px;
+    padding-right: 7px;
+    resize: none;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    line-height: 16px;
+    color: #303030;
+}
+
+/* Style pour les titres de l'onglet Enrichir */
+.enrich-title {
+    position: relative;
+    left: 100px;
+    top: 20px;
+    line-height: 25px;
+    letter-spacing: 1.5px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #303030;
+    margin-bottom: 30px;
+    display: block;
+    margin-top: 0;
+    width: calc(100% - 120px);
+}
+
+/* Style pour le conteneur d'enrichissement */
+.enrich-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+/* Ajuster la position du panneau d'entrée pour qu'il soit sous le titre */
+.enrich-container .panel-input {
+    position: relative;
+    left: 100px;
+    right: 20px;
+    width: calc(100% - 120px);
+    min-height: 80px;
+    max-height: 120px;
+    margin-top: 10px;
+    top: auto;
+}
+
+/* Ajuster la position du panneau enrichi */
+.enrich-container .panel-enriched {
+    position: relative;
+    left: 100px;
+    right: 20px;
+    width: calc(100% - 120px);
+    min-height: 80px;
+    height: auto;
+    border-left: 3px solid #76dac6;
+    margin-top: 10px;
+    top: auto;
+    overflow: visible;
+}
+
+/* Ajuster les positions des autres éléments en conséquence */
+.enrich-container .input-buttons {
+    position: relative;
+    right: 20px;
+    margin-top: 10px;
+    align-self: flex-end;
+    top: auto;
+}
+
+/* Style pour le contenu de la réponse enrichie */
+.enriched-response-content {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    line-height: 16px;
+    color: #1A1A1A;
+    padding: 0;
+    margin-bottom: 4px;
+    overflow: visible;
+}
+
+/* Ajuster la position des boutons de réponse */
+.enrich-container .response-actions {
+    position: relative;
+    left: 100px;
+    width: calc(100% - 120px);
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: right;
 }

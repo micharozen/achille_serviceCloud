@@ -70,55 +70,59 @@
 
                 <!-- Panel Enrichissement -->
                 <div class={mainPanelTransTextClass}>
-                    <div class="title">
-                        Saisir votre réponse pour l'enrichir :
-                    </div>
-                    <div class="panel">
-                        <textarea 
-                            value={userText}
-                            onchange={handleUserTextChange}
-                        ></textarea>
+                    <div class="enrich-container">
+                        <!-- Titre clairement séparé -->
+                        <h2 class="enrich-title">Saisir votre réponse pour l'enrichir :</h2>
                         
-                        <!-- Affichage des réponses enrichies directement sous la textarea -->
-                        <template if:true={hasEnrichedResponse}>
-                            <div class="enriched-response-section">
-                                <div class="user-original-text">
-                                    <div class="original-text-label">Votre texte original :</div>
-                                    <div class="original-text-content">{userText}</div>
-                                </div>
+                        <!-- Zone de texte -->
+                        <div class="panel panel-input">
+                            <textarea 
+                                value={userText}
+                                onchange={handleUserTextChange}
+                            ></textarea>
+                        </div>
+                        
+                        <div class="panel-button input-buttons">
+                            <button class="button" onclick={handleCancel}>✗ Annuler</button>
+                            <button class="button ok" onclick={handleEnrichText}>✦ Enrichir avec Achille</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Affichage des réponses enrichies dans un panneau séparé -->
+                    <template if:true={hasEnrichedResponse}>
+                        <div class="enrich-container">
+                            <h2 class="enrich-title response-title">Réponse enrichie par Achille :</h2>
+                            <div class="panel panel-enriched">
                                 <div class="enriched-response-content">
                                     <lightning-formatted-rich-text
                                         value={lastEnrichedResponse.enrichedText}
                                     ></lightning-formatted-rich-text>
                                 </div>
-                                <div class="response-actions">
-                                    <button 
-                                        class="button ok" 
-                                        onclick={handleCopy} 
-                                        data-text={lastEnrichedResponse.enrichedText}
-                                        data-formatted="false"
-                                    >
-                                        ✦ Utiliser cette réponse
-                                    </button>
-                                    <button 
-                                        class="button ok" 
-                                        onclick={handleCopy} 
-                                        data-text={lastEnrichedResponse.enrichedText}
-                                        data-formatted="true"
-                                    >
-                                        ✦ Utiliser avec formatage
-                                    </button>
-                                </div>
                                 <div class="response-timestamp">
                                     {lastEnrichedResponse.formattedTimestamp}
                                 </div>
                             </div>
-                        </template>
-                    </div>
-                    <div class="panel-button">
-                        <button class="button" onclick={handleCancel}>✗ Annuler</button>
-                        <button class="button ok" onclick={handleEnrichText}>✦ Enrichir avec Achille</button>
-                    </div>
+                            <!-- Boutons déplacés en dehors du panel-enriched -->
+                            <div class="response-actions panel-button">
+                                <button 
+                                    class="button ok" 
+                                    onclick={handleCopy} 
+                                    data-text={lastEnrichedResponse.enrichedText}
+                                    data-formatted="false"
+                                >
+                                    ✦ Utiliser cette réponse
+                                </button>
+                                <button 
+                                    class="button ok" 
+                                    onclick={handleCopy} 
+                                    data-text={lastEnrichedResponse.enrichedText}
+                                    data-formatted="true"
+                                >
+                                    ✦ Utiliser avec formatage
+                                </button>
+                            </div>
+                        </div>
+                    </template>
                     
                     <!-- Affichage des erreurs -->
                     <template if:true={showError}>
