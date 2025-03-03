@@ -39,8 +39,7 @@
                             <div class="panel-tag success">Suggestion valide</div>
                             <div class="panel-button">
                                 <button class="button" onclick={handleCancel}>✗ Annuler</button>
-                                <button class="button ok" onclick={handleCopy} data-text={answerContent} data-formatted="false">▽ Copier le texte</button>
-                                <button class="button ok" onclick={handleCopy} data-text={answerContent} data-formatted="true">▽ Copier avec formatage</button>
+                                <button class="button ok" onclick={handleCopy} data-text={answerContent} data-formatted="true">▽ Copier dans le presse-papier</button>
                             </div>
                         </div>
                     </template>
@@ -110,15 +109,7 @@
                                     data-text={lastEnrichedResponse.enrichedText}
                                     data-formatted="false"
                                 >
-                                    ✦ Utiliser cette réponse
-                                </button>
-                                <button 
-                                    class="button ok" 
-                                    onclick={handleCopy} 
-                                    data-text={lastEnrichedResponse.enrichedText}
-                                    data-formatted="true"
-                                >
-                                    ✦ Utiliser avec formatage
+                                    ✦ Copier dans le presse-papier
                                 </button>
                             </div>
                         </div>

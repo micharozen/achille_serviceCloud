@@ -1,4 +1,4 @@
-public class EmailMessageNotificationToAchille implements Queueable {
+public class EmailMessageNotificationToAchille implements Queueable, Database.AllowsCallouts {
     private List<EmailMessage> emailMessages;
     
     public EmailMessageNotificationToAchille(List<EmailMessage> emailMessages) {

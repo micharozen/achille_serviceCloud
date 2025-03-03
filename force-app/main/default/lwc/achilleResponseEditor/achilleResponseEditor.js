@@ -317,7 +317,7 @@ export default class AchilleResponseEditor extends NavigationMixin(LightningElem
             // Copier le texte formaté (HTML)
             navigator.clipboard.writeText(textToCopy)
                 .then(() => {
-                    this.showToast('Succès', 'Texte formaté copié !', 'success');
+                    this.showToast('Succès', 'Texte copié dans le presse-papier !', 'success');
                 })
                 .catch(err => {
                     console.error('Erreur lors de la copie :', err);
@@ -331,7 +331,7 @@ export default class AchilleResponseEditor extends NavigationMixin(LightningElem
             
             navigator.clipboard.writeText(cleanText)
                 .then(() => {
-                    this.showToast('Succès', 'Texte copié !', 'success');
+                    this.showToast('Succès', 'Texte copié dans le presse-papier !', 'success');
                 })
                 .catch(err => {
                     console.error('Erreur lors de la copie :', err);

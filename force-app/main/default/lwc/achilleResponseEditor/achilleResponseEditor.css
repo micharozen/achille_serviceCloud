@@ -301,7 +301,7 @@ textarea {
     background: #f7efec;
     border-radius: 0.25rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: 500px;
+    height: 330px;
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -538,16 +538,16 @@ textarea {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(247, 239, 236, 0.9); /* Fond légèrement teinté qui correspond au thème */
     border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     width: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 2;
+    z-index: 1000; /* S'assurer qu'il est au-dessus des autres éléments */
 }
 
 .spinner-text {
@@ -869,7 +869,21 @@ textarea {
 }
 
 .response-actions {
-    text-align: right;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    gap: 10px;
+    position: relative;
+    left: 100px;
+    width: calc(100% - 120px);
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.response-actions button {
+    flex-shrink: 0; /* Empêche les boutons de rétrécir */
+    white-space: nowrap; /* Empêche le texte de passer à la ligne */
 }
 
 /* Style pour les messages d'erreur */
