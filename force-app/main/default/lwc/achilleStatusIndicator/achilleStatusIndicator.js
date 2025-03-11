@@ -1,14 +1,8 @@
 import { LightningElement, api, wire } from 'lwc';
-import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import ACHILLE_LOGO from '@salesforce/resourceUrl/achille_logo';
 import ACHILLE_AISAT from '@salesforce/resourceUrl/achille_aisat';
 import ACHILLE_PRIORITY from '@salesforce/resourceUrl/achille_priority';
 
-// Import des champs personnalisés (à adapter selon vos noms de champs)
-import CURRENT_STATUS_FIELD from '@salesforce/schema/Case.Status';
-import AISAT_FIELD from '@salesforce/schema/Case.Id';
-import PRIORITY_FIELD from '@salesforce/schema/Case.Priority';
-import REGISTERED_CLIENT_FIELD from '@salesforce/schema/Case.Subject';
 
 // Apex Class Import
 import getCaseLastInfo from '@salesforce/apex/AchilleAPIService.getCaseLastInfo';

@@ -1,12 +1,17 @@
 {
   "packageDirectories": [
     {
+      "versionName": "Achille Service - Editor / Status Indicator",
+      "versionNumber": "1.0.0.NEXT",
       "path": "force-app",
-      "default": true
+      "default": true,
+      "package": "achille_service",
+      "ancestorVersion": "1.0.0.NEXT",
+      "versionDescription": "Achille Service - Editor / Status Indicator - v1.0.0"
     }
   ],
   "name": "achille_service",
-  "namespace": "",
+  "namespace": "achille_ai",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "62.0"
 }

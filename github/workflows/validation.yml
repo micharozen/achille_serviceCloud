@@ -1,0 +1,62 @@
+    on:
+      pull_request:
+        # Add your major branches names here
+        branches:
+          - main
+          - preprod
+          - uat
+          - integration
+    permissions: read-all
+    name: Simulate Deployment (sfdx-hardis)
+    
+    concurrency:
+      group: ${{ github.ref }}-${{ github.workflow }}
+      cancel-in-progress: true
+    
+    jobs:
+      check_deployment:
+        runs-on: ubuntu-latest
+        name: Simulate Deployment
+        permissions:
+          pull-requests: write
+          contents: write
+          issues: write
+        steps:
+          # Checkout repo
+          - name: Checkout code
+            uses: actions/checkout@v4
+            with:
+              persist-credentials: true
+              token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+              fetch-depth: 0 # Fetch all branches
+          # Setup node
+          - name: Setup Node
+            uses: actions/setup-node@v4
+            with:
+              node-version: "20"
+          # SFDX & plugins
+          - name: Install SFDX and plugins
+            run: |
+              npm install --no-cache @salesforce/cli --global
+              sf plugins install @salesforce/plugin-packaging
+              sf version --verbose --json
+
+          # Authenticate to DevHub and create scratch org
+          - name: Setup DevHub and Scratch Org
+            env:
+              SF_DEV_HUB_URL: ${{ secrets.SF_DEV_HUB_URL }}
+            run: |
+              echo "$SF_DEV_HUB_URL" > ./SF_DEV_HUB_URL.txt
+              sf org login sfdx-url -f ./SF_DEV_HUB_URL.txt -a achillePBO
+              sf org create scratch --definition-file config/project-scratch-def.json --alias scratch-org --duration-days 1 --set-default --no-namespace --target-dev-hub achillePBO
+              
+          # Deploy PR content to scratch org
+          - name: Deploy to Scratch Org
+            run: |
+              sf project deploy start -o scratch-org
+              sf apex test run -l RunLocalTests -w 30 -c -r human -o scratch-org
+
+          # Cleanup scratch org
+          - name: Delete Scratch Org
+            if: always()
+            run: sf org delete scratch -o scratch-org -p

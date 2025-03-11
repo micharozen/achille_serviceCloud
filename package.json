@@ -13,7 +13,22 @@
     "prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
     "prettier:verify": "prettier --check \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
     "postinstall": "husky install",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "apex": "sf project deploy start --source-dir force-app/main/default/classes",
+    "lwc": "sf project deploy start --source-dir force-app/main/default/lwc",
+    "labels": "sf project deploy start --source-dir force-app/main/default/labels",
+    "trigger": "sf project deploy start --source-dir force-app/main/default/triggers",
+    "resource": "sf project deploy start --source-dir force-app/main/default/staticresources",
+    "package unlock": "sf package create --name achille_serviceUnlock --package-type Unlocked --path force-app --description \"achille_service unlock v0.0.1\" --target-dev-hub AchillePBO  --error-notification-username michael@upplaw.pbo",
+    "package:version": "sf package version create --package \"achille_service\" --installation-key-bypass --code-coverage --target-dev-hub \"AchillePBO\" --json -f config/project-scratch-def.json",
+    "create:scratch": "sf org:create:scratch --definition-file config/project-scratch-def.json --duration-days 2 --set-default --no-namespace --json --alias",
+    "deploy": "sf project deploy start --source-dir force-app/main/default --target-org",
+    "package:report": "sf package version create report --package-create-request-id",
+    "org:clean": "sf org list --clean",
+    "clean:objects": "node scripts/clean-empty-objects.js",
+    "package:install": "sf package install --package 04tWx0000001MZZIA2  --target-org SCR6",
+    "target:org": "sf config set target-org=",
+    "package:managed": "sf package create --name achille_service --description \"achille_service - Achille Service\" --package-type Managed --path force-app --target-dev-hub AchillePBO --error-notification-username michael@upplaw.pbo"
   },
   "devDependencies": {
     "@lwc/eslint-plugin-lwc": "^1.1.2",
