@@ -37,7 +37,7 @@ public class AchilleAPIService {
         
         // Définir le timeout à 120 secondes
         req.setTimeout(120000);
-        
+        req.setHeader('X-API-Key', getApiKey());
         // Ajouter le header Content-Type pour les requêtes POST
         if (method == 'POST') {
             req.setHeader('Content-Type', 'application/json');
@@ -167,4 +167,12 @@ public class AchilleAPIService {
         }
         return null;
     }
+
+    public static String getApiKey() {
+        if(Test.isRunningTest()) {
+            return 'test';
+        }
+        return [SELECT ApiKey__c FROM AchilleInfos__mdt LIMIT 1].ApiKey__c;
+    }
+
 } 
