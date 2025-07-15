@@ -1,5 +1,4 @@
-public class AchilleAPIService {
-    private static final String BASE_URL = 'callout:Achille';
+public with sharing class AchilleAPIService {
     
     // Singleton pattern
     private static AchilleAPIService instance;
@@ -32,7 +31,7 @@ public class AchilleAPIService {
      */
     private APIResponse call(String endpoint, String method, String body) {
         HttpRequest req = new HttpRequest();
-        req.setEndpoint(BASE_URL + endpoint);
+        req.setEndpoint('callout:' + AchilleApiKeyRestService.getNamespacePrefix() + 'Achille' + endpoint);
         req.setMethod(method);
         
         // Définir le timeout à 120 secondes

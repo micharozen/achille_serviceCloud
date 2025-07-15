@@ -1,0 +1,344 @@
+---
+description: Salesforce Security Review Compliance Rule - Enforces critical security practices for AppExchange approval
+globs: ["**/*.cls", "**/*.trigger", "**/*.js", "**/*.html", "**/*.css", "**/*.cmp", "**/*.app"]
+alwaysApply: true
+---
+
+# Salesforce Security Review Cursor Rule
+
+You are a Salesforce development expert focused on security review compliance. Always enforce these critical practices for AppExchange security review approval.
+
+## APEX CLASSES - SECURITY REQUIREMENTS
+
+### 1. SOQL/SOSL Injection Prevention
+
+- **NEVER** use dynamic SOQL with user input concatenation
+- **ALWAYS** use binding variables (:variable) for user inputs
+- **ALWAYS** use String.escapeSingleQuotes() for dynamic WHERE clauses
+- **REQUIRED**: Use Database.query() with proper parameterization
+
+```apex
+// ❌ WRONG - Vulnerable to injection
+String query = 'SELECT Id FROM Account WHERE Name = \'' + userInput + '\'';
+// ✅ CORRECT - Use binding variables
+String query = 'SELECT Id FROM Account WHERE Name = :accountName';
+```
+
+### 2. CRUD/FLS (Field Level Security) Enforcement
+
+- **MANDATORY**: Check CRUD permissions before DML operations
+- **MANDATORY**: Check FLS before accessing/displaying fields
+- **REQUIRED**: Use Security.stripInaccessible() for queries
+- **REQUIRED**: Use Schema.sObjectType.ObjectName.fields.FieldName.isAccessible()
+
+```apex
+// ✅ CORRECT - Check permissions
+if (Schema.sObjectType.Account.isCreateable()) {
+    // Perform insert
+}
+List<Account> accounts = Security.stripInaccessible(
+    AccessType.READABLE, 
+    [SELECT Id, Name FROM Account]
+).getRecords();
+```
+
+### 3. Bulk Processing & Governor Limits
+
+- **MANDATORY**: Design for bulk operations (200+ records)
+- **NEVER** perform DML/SOQL inside loops
+- **ALWAYS** use collections and batch processing
+- **REQUIRED**: Implement proper exception handling
+
+```apex
+// ✅ CORRECT - Bulk pattern
+List<Account> accountsToUpdate = new List<Account>();
+for (Contact con : contacts) {
+    accountsToUpdate.add(new Account(Id = con.AccountId, LastModified = System.now()));
+}
+update accountsToUpdate;
+```
+
+### 4. Exception Handling & Logging
+
+- **MANDATORY**: Implement comprehensive try-catch blocks
+- **NEVER** expose sensitive data in error messages
+- **REQUIRED**: Log errors appropriately without exposing internal details
+- **AVOID**: Generic catch blocks without proper handling
+
+### 5. Access Control & Sharing
+
+- **MANDATORY**: Respect org-wide defaults and sharing rules
+- **CAREFUL**: Use "with sharing" keyword unless explicitly needed
+- **REQUIRED**: Validate user permissions for sensitive operations
+- **AVOID**: "without sharing" unless absolutely necessary
+
+## LIGHTNING WEB COMPONENTS - SECURITY REQUIREMENTS
+
+### 1. Input Validation & Sanitization
+
+- **MANDATORY**: Validate all user inputs client-side AND server-side
+- **REQUIRED**: Use lightning-input components with proper validation
+- **NEVER** trust client-side validation alone
+- **ALWAYS** sanitize data before processing
+
+### 2. Apex Method Security
+
+- **MANDATORY**: All @AuraEnabled methods must have proper security checks
+- **REQUIRED**: Use @AuraEnabled(cacheable=true) only for read operations
+- **MANDATORY**: Implement CRUD/FLS checks in Apex methods
+
+```javascript
+// ✅ CORRECT - Proper server call with error handling
+import { wire } from 'lwc';
+@wire(getAccounts, { searchTerm: '$searchTerm' })
+wiredAccounts({ error, data }) {
+    if (error) {
+        // Handle error appropriately
+        this.showToast('Error', 'Unable to load data', 'error');
+    } else if (data) {
+        this.accounts = data;
+    }
+}
+```
+
+### 3. Content Security Policy (CSP)
+
+- **FORBIDDEN**: Use of eval(), innerHTML with user data
+- **REQUIRED**: Use textContent or proper DOM manipulation
+- **MANDATORY**: Follow CSP guidelines for external resources
+- **AVOID**: Dynamic script generation
+
+### 4. CSS & Styling Restrictions
+
+- **FORBIDDEN**: CSS position: absolute, position: fixed, position: sticky
+- **FORBIDDEN**: CSS float properties (left, right, none)
+- **FORBIDDEN**: Inline CSS styles in components
+- **FORBIDDEN**: Hard-coded width and height values
+- **MANDATORY**: Use SLDS utility classes (slds-is-absolute if positioning needed)
+- **REQUIRED**: All CSS must be in component .css files
+- **NEVER**: Use .THIS selector for namespace isolation violations
+
+```css
+/* ❌ WRONG - Security review rejection */
+.my-element {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    width: 300px;
+    height: 200px;
+    float: left;
+}
+
+/* ✅ CORRECT - Use SLDS utilities */
+.my-element {
+    position: relative;
+    margin-top: var(--lwc-spacingSmall);
+    margin-left: var(--lwc-spacingMedium);
+}
+```
+
+### 5. Data Handling
+
+- **MANDATORY**: Implement proper error handling for all server calls
+- **REQUIRED**: Show user-friendly error messages
+- **NEVER**: Expose internal system details to users
+- **ALWAYS**: Handle null/undefined values properly
+
+## GENERAL SECURITY PRACTICES
+
+### 1. Code Quality & Testing
+
+- **MANDATORY**: Minimum 75% code coverage for security review
+- **REQUIRED**: Test bulk scenarios (200+ records)
+- **MANDATORY**: Test negative scenarios and error conditions
+- **REQUIRED**: Include security-focused test methods
+
+### 2. Performance & Scalability
+
+- **MANDATORY**: Optimize for large data volumes
+- **REQUIRED**: Use efficient queries with proper indexing
+- **AVOID**: Nested loops and inefficient algorithms
+- **IMPLEMENT**: Proper pagination for large datasets
+
+### 3. External Integrations
+
+- **MANDATORY**: Use named credentials for external callouts
+- **REQUIRED**: Implement proper timeout handling
+- **MANDATORY**: Validate all external data
+- **NEVER**: Store credentials in code or custom settings
+
+### 4. Metadata & Configuration
+
+- **REQUIRED**: Use custom metadata types for configuration
+- **AVOID**: Hard-coded values and magic numbers
+- **MANDATORY**: Implement proper permission sets
+- **REQUIRED**: Follow principle of least privilege
+
+## FORBIDDEN PRACTICES
+
+### Apex
+
+- Dynamic SOQL/SOSL without proper escaping
+- DML operations in loops
+- Missing sharing keywords
+- Hardcoded IDs or values
+- Insufficient error handling
+- Missing CRUD/FLS checks
+- Using secrets in code or debug statements
+- Outdated JavaScript libraries in static resources
+
+### LWC
+
+- Using innerHTML with user data
+- Missing input validation
+- Inadequate error handling
+- CSP violations
+- Unescaped user output
+- **CSS position: absolute, fixed, sticky**
+- **CSS float properties**
+- **Inline CSS styles**
+- **Hard-coded dimensions**
+
+### Aura Components
+
+- Missing .THIS namespace isolation
+- **CSS position: absolute, fixed violations**
+- **Using float in CSS**
+- Inline JavaScript in markup
+- Missing component encapsulation
+
+### General
+
+- Storing sensitive data in debug logs
+- Exposing internal errors to users
+- Missing test coverage for security scenarios
+- Inadequate bulk processing
+- Poor exception handling
+- **Using <link> or <style> tags instead of proper resource loading**
+- **Inline CSS anywhere in components**
+- External resources not uploaded as static resources
+
+## ADDITIONAL SECURITY REQUIREMENTS
+
+### 1. Static Resource Management
+
+- **MANDATORY**: Upload all external libraries as static resources
+- **FORBIDDEN**: Direct links to external CDNs or resources
+- **REQUIRED**: Use latest versions of JavaScript libraries
+- **MANDATORY**: Scan for known vulnerabilities (CVE database)
+
+### 2. CSS and Layout Security
+
+- **CRITICAL**: Never use position: absolute, fixed, or sticky
+- **FORBIDDEN**: Float properties (can break component isolation)
+- **MANDATORY**: Use SLDS utility classes for positioning
+- **REQUIRED**: Responsive design without fixed dimensions
+- **ALTERNATIVE**: Use slds-is-absolute class if absolute positioning needed
+
+### 3. Information Disclosure Prevention
+
+- **MANDATORY**: Remove all debug statements before submission
+- **FORBIDDEN**: Exposing stack traces to end users
+- **REQUIRED**: Generic error messages for production
+- **NEVER**: Log sensitive data (passwords, tokens, PII)
+
+### 4. JavaScript Library Security
+
+- **MANDATORY**: Keep all libraries updated to latest versions
+- **REQUIRED**: Scan with RetireJS for vulnerabilities
+- **FORBIDDEN**: Libraries with known CVE issues
+- **MANDATORY**: Use Salesforce Code Analyzer before submission
+
+### 5. External Integration Security
+
+- **MANDATORY**: Use Named Credentials for all external calls
+- **REQUIRED**: Implement proper timeout handling
+- **MANDATORY**: Validate all incoming data from external sources
+- **FORBIDDEN**: Storing API keys or secrets in custom settings
+
+## SECURITY REVIEW CHECKLIST
+
+Before submitting code, verify:
+
+- [ ] All SOQL queries use binding variables or proper escaping
+- [ ] CRUD and FLS permissions are checked
+- [ ] Bulk processing is implemented (200+ records)
+- [ ] Comprehensive error handling exists
+- [ ] Test coverage exceeds 75%
+- [ ] Security test cases are included
+- [ ] No hardcoded values or credentials
+- [ ] CSP compliance for LWC components
+- [ ] Proper sharing model implementation
+- [ ] External integrations use named credentials
+- [ ] **No CSS position: absolute, fixed, or sticky**
+- [ ] **No CSS float properties used**
+- [ ] **No inline CSS styles in any components**
+- [ ] **All external libraries uploaded as static resources**
+- [ ] **JavaScript libraries scanned for vulnerabilities**
+- [ ] **Debug statements removed from production code**
+- [ ] **SLDS utility classes used for positioning**
+- [ ] **Responsive design without fixed dimensions**
+- [ ] **Error messages don't expose internal details**
+- [ ] **Salesforce Code Analyzer scan completed**
+
+## ENFORCEMENT RULES
+
+1. **REJECT** any code that violates SOQL injection prevention
+2. **REQUIRE** CRUD/FLS checks for all data operations
+3. **MANDATE** bulk processing patterns
+4. **ENFORCE** proper exception handling
+5. **VALIDATE** security test coverage
+6. **ENSURE** CSP compliance for all LWC components
+7. **BLOCK** any CSS using position: absolute, fixed, or sticky
+8. **PROHIBIT** inline CSS styles in components
+9. **DEMAND** SLDS utility classes for layout needs
+10. **VERIFY** all external resources are static resources
+
+## COMMON SECURITY REVIEW FAILURES TO AVOID
+
+Based on the top 20 vulnerabilities found in AppExchange security reviews:
+
+### Top Failure Reasons
+
+1. **CRUD/FLS violations** - Most common failure by significant margin
+2. **CSS positioning issues** - Using position: absolute, fixed, float breaks layout
+3. **Inline CSS violations** - CSP requires CSS in files, not inline
+4. **SOQL injection vulnerabilities**
+5. **Information disclosure through error messages**
+6. **Outdated JavaScript libraries with CVEs**
+7. **Missing sharing enforcement**
+8. **Hardcoded secrets in code**
+
+### Critical Notes
+
+- Position absolute is incompatible with style isolation
+- Don't use .THIS, fixed, absolute, or float in CSS
+- CSS that avoids component encapsulation breaks Lightning's security model
+- All external resources must be uploaded to org as static resources
+
+Always prioritize security over convenience. When in doubt, choose the more secure approach. Remember: Security review failures can block AppExchange publication entirely.
+
+## IMMEDIATE ACTIONS FOR CODE REVIEW
+
+When reviewing or writing Salesforce code:
+
+1. **SCAN** for dynamic SOQL without binding variables
+2. **VERIFY** CRUD/FLS checks before any data access
+3. **CHECK** for DML operations inside loops
+4. **VALIDATE** proper exception handling patterns
+5. **INSPECT** CSS for forbidden positioning properties
+6. **ENSURE** no inline styles in HTML templates
+7. **CONFIRM** external resources are static resources
+8. **REVIEW** error messages for information disclosure
+9. **TEST** bulk processing scenarios (200+ records)
+10. **VALIDATE** test coverage meets 75% minimum
+
+## SECURITY-FIRST DEVELOPMENT APPROACH
+
+- Write security checks BEFORE business logic
+- Test security scenarios alongside functional tests
+- Use security-focused code patterns as defaults
+- Regularly scan code with Salesforce Code Analyzer
+- Keep security requirements at the forefront of all development decisions
+
+Remember: Security review compliance is not optional for AppExchange success. Every line of code must meet these security standards.

@@ -1,5 +1,5 @@
 <ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
     <developerName>achille_ai__Achille</developerName>
     <label>Achille</label>
-    <version>1.0</version>
+    <version>3.0</version>
 </ConnectedApp>
