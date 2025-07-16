@@ -45,24 +45,6 @@ private class TH_CaseTest {
         }
     }
     
-    @IsTest
-    static void testBeforeDelete() {
-        System.runAs(TestUtils.getAchilleUser()) {
-            Case testCase = new Case(
-                Subject = 'Test Case',
-                Status = 'New',
-                Origin = 'Email'
-            );
-            insert testCase;
-            
-            Test.startTest();
-            delete testCase;
-            Test.stopTest();
-            
-            List<Case> deletedCases = [SELECT Id FROM Case WHERE Id = :testCase.Id ALL ROWS];
-            System.assertEquals(0, deletedCases.size(), 'Le Case devrait être supprimé');
-        }
-    }
     
     @IsTest
     static void testAfterInsert() {

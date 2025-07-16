@@ -49,6 +49,8 @@ export default class AchilleResponseEditor extends NavigationMixin(LightningElem
     get enrichTabClass() {
         return this.activeTab === 'transtext' ? 'tab tab-transtext selected' : 'tab tab-transtext';
     }
+
+
     
     get mainPanelAutoRespClass() {
         return this.activeTab === 'autoresp' ? 'mainpanel active' : 'mainpanel';
@@ -370,11 +372,6 @@ export default class AchilleResponseEditor extends NavigationMixin(LightningElem
         
         // Réinitialiser la hauteur de la textarea
         this.adjustTextareaHeight();
-    }
-
-    // Méthode pour fermer le panneau d'information
-    handleClose() {
-        this.hideAll();
     }
 
     // Ajout du getter pour le style du background

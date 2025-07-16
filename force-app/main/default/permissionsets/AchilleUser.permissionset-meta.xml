@@ -35,7 +35,7 @@
     <description>Grants Achille features</description>
     <externalCredentialPrincipalAccesses>
         <enabled>true</enabled>
-        <externalCredentialPrincipal>Achille-AchilleKey</externalCredentialPrincipal>
+        <externalCredentialPrincipal>achille_ai__Achille-AchilleKey</externalCredentialPrincipal>
     </externalCredentialPrincipalAccesses>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Achille AI User</label>

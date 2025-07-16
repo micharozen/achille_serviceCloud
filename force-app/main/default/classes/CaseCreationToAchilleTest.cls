@@ -108,6 +108,11 @@ private class CaseCreationToAchilleTest {
         // Exécuter le job
         System.enqueueJob(notifier);
         
+        System.assertEquals(1, [SELECT COUNT() FROM AsyncApexJob 
+        WHERE JobType = 'Queueable' 
+        AND ApexClass.Name = 'CaseCreationToAchille' 
+        AND Status = 'Completed'], 
+        'Le job devrait être complété avec succès');
         Test.stopTest();
         
         // La vérification est implicite car Test.stopTest() attend la fin de tous les jobs asynchrones
@@ -143,6 +148,11 @@ private class CaseCreationToAchilleTest {
         // Exécuter le job
         System.enqueueJob(notifier);
         
+        System.assertEquals(1, [SELECT COUNT() FROM AsyncApexJob 
+        WHERE JobType = 'Queueable' 
+        AND ApexClass.Name = 'CaseCreationToAchille' 
+        AND Status = 'Completed'], 
+        'Le job devrait être complété avec succès');
         Test.stopTest();
         
         // La vérification est implicite car Test.stopTest() attend la fin de tous les jobs asynchrones
@@ -163,6 +173,11 @@ private class CaseCreationToAchilleTest {
         // Exécuter le job
         System.enqueueJob(notifier);
         
+        System.assertEquals(1, [SELECT COUNT() FROM AsyncApexJob 
+        WHERE JobType = 'Queueable' 
+        AND ApexClass.Name = 'CaseCreationToAchille' 
+        AND Status = 'Completed'], 
+        'Le job devrait être complété avec succès');
         Test.stopTest();
         
         // La vérification est implicite car Test.stopTest() attend la fin de tous les jobs asynchrones

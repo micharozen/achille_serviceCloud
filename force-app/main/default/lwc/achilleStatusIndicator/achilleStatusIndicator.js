@@ -2,6 +2,7 @@ import { LightningElement, api, wire } from 'lwc';
 import ACHILLE_LOGO from '@salesforce/resourceUrl/achille_logo';
 import ACHILLE_AISAT from '@salesforce/resourceUrl/achille_aisat';
 import ACHILLE_PRIORITY from '@salesforce/resourceUrl/achille_priority';
+import achilleMainLogo from '@salesforce/resourceUrl/achille_main_logo_black';
 
 
 // Apex Class Import
@@ -13,6 +14,7 @@ export default class AchilleStatusIndicator extends LightningElement {
     achilleLogo = ACHILLE_LOGO;
     achilleAisat = ACHILLE_AISAT;
     achillePriority = ACHILLE_PRIORITY;
+    achilleMainLogo = achilleMainLogo;
     
     // Variables pour stocker les informations du ticket
     aisatValue = 'Aucun';

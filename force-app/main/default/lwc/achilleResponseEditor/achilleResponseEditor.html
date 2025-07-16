@@ -2,20 +2,25 @@
     <div class="achille-editor">
         <!-- Title bar avec logo et onglets -->
         <div class="title-bar">
-            <!-- Onglets à gauche -->
-            <div class={autoResponseTabClass} onclick={handleAutoResponseTab}>
-                Suggestion
+            <!-- Onglets centrés -->
+            <div class="tabs-container">
+                <div class={autoResponseTabClass} onclick={handleAutoResponseTab}>
+                    Suggestion
+                </div>
+                <div class={enrichTabClass} onclick={handleEnrichTab}>
+                    Enrichir
+                </div>
             </div>
-            <div class={enrichTabClass} onclick={handleEnrichTab}>
-                Enrichir
-            </div>
+            
             <!-- Logo à droite -->
-            <div class="logo-container">
-                <img src={achilleLogo} alt="Achille Logo" class="logo-image"/>
+            <div class="header-right">
+                <div class="logo-container">
+                    <img src={achilleLogo} alt="Achille Logo" class="logo-image"/>
+                </div>
             </div>
         </div>
 
-        <div class="panel-main" style="background-image: url({achilleBackground})">
+        <div class="panel-main bg-stars">
             <div class="panel-gradient">
                 <div class="warrior-container">
                     <img src={achilleWarrior} alt="Achille Warrior" class="warrior-image"/>
@@ -60,9 +65,7 @@
                             <template if:true={infoTag}>
                                 <div class={tagClass}>{infoTag}</div>
                             </template>
-                            <div class="panel-button">
-                                <button class="button" onclick={handleClose}>✗ Fermer</button>
-                            </div>
+
                         </div>
                     </template>
                 </div>

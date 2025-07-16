@@ -1,1198 +1,387 @@
+/* ========== STRUCTURE PRINCIPALE ========== */
 .achille-editor {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #f7efec;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: height 0.3s ease;
 }
 
+/* ========== TITLE BAR (HEADER NOIR) ========== */
+.title-bar {
+    width: 100%;
+    min-height: 2.5rem;
+    background-color: black;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 var(--slds-c-spacing-medium, 1rem);
+    box-sizing: border-box;
+}
+
+/* Onglets au centre */
+.tabs-container {
+    display: flex;
+    gap: 2px;
+    align-items: flex-end;
+    justify-content: center;
+    flex: 1;
+}
+
+.tab {
+    min-height: 2rem;
+    min-width: 6.25rem;
+    background-color: #b8aaa5;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    line-height: 2rem;
+    font-size: var(--slds-c-font-size-2, 0.75rem);
+    text-align: center;
+    color: var(--slds-c-color-text-default, #333333);
+    cursor: pointer;
+    border: none;
+    padding: 0 var(--slds-c-spacing-medium, 1rem);
+    box-sizing: border-box;
+}
+
+.tab.selected {
+    background-color: #f7efec;
+    color: var(--slds-c-color-text-default, #000);
+    min-height: 2.125rem;
+    line-height: 2.125rem;
+}
+
+/* Header droite avec logo et bouton */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-c-spacing-small, 0.5rem);
+    margin-left: auto;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    min-height: 2.5rem;
+}
+
+.logo-image {
+    max-height: 1.25rem;
+    width: auto;
+}
+
+/* ========== CONTENU PRINCIPAL ========== */
 .panel-main {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 2.5rem);
     overflow-y: auto;
-}
-
-.bg-stars {
-    background-image: url('/resource/AchilleBackgroundStars');
+    overflow-x: hidden;
+    background-image: url('/resource/achille_bg_editor');
+    background-size: cover;
+    background-position: center;
+    background-color: #f7efec;
+    transition: opacity 0.3s ease;
 }
 
 .panel-gradient {
     width: 100%;
     min-height: 100%;
-    background-image: linear-gradient(to bottom, #FFFFFF00 25%, white 80%);
-}
-
-.title-bar {
-    width: 100%;
-    height: 30px;
-    background-color: black;
-    position: relative;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0.9) 80%);
+    padding: 0 var(--slds-c-spacing-medium, 1rem) var(--slds-c-spacing-medium, 1rem) var(--slds-c-spacing-medium, 1rem);
+    box-sizing: border-box;
     display: flex;
-    align-items: center;
+    gap: var(--slds-c-spacing-medium, 1rem);
 }
 
-.logo-container {
-    position: absolute;
-    right: 15px;
-    top: 0;
-    height: 30px;
-    display: flex;
-    align-items: center;
-}
-
-.logo-image {
-    height: 16px;
-}
-
-.tab {
-    height: 18px;
-    width: 80px;
-    background-color: #b8aaa5;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    line-height: 18px;
-    font-size: 8px;
-    text-align: center;
-    letter-spacing:-0.8px;
-    color: #333333;
-    cursor: pointer;
-    margin-left: 5px;
-    position: relative;
-    top: 6px;
-    font-weight: normal;
-}
-
-.tab:first-child {
-    margin-left: 180px;
-}
-
-.tab.selected {
-    height: 19px;
-    background-color: #f7efec;
-    cursor: default;
-}
-
+/* ========== WARRIOR CONTAINER ========== */
 .warrior-container {
-    position: absolute;
-    left: 12px;
-    top: 12px;
+    flex-shrink: 0;
+    width: 6.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: var(--slds-c-spacing-medium, 1rem);
 }
 
 .warrior-image {
-    width: 82px;
-    height: 95px;
+    max-width: 5.125rem;
+    max-height: 5.9375rem;
+    width: auto;
+    height: auto;
 }
 
+/* ========== PANELS PRINCIPAUX ========== */
 .mainpanel {
     display: none;
+    flex: 1;
+    min-width: 0;
 }
 
 .mainpanel.active {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-c-spacing-medium, 1rem);
 }
 
+/* ========== TITRE ========== */
 .title {
-    position: relative;
-    left: 100px;
-    top: 20px;
-    line-height: 25px;
-    letter-spacing: 1.5px;
-    font-size: 13px;
-    font-weight: 400;
-    color: #303030;
-    margin-bottom: 15px;
-    display: block;
+    font-size: var(--slds-c-font-size-3, 0.875rem);
+    font-weight: var(--slds-c-font-weight-medium, 500);
+    color: var(--slds-c-color-text-default, #303030);
+    margin-top: var(--slds-c-spacing-medium, 1rem);
+    margin-bottom: var(--slds-c-spacing-small, 0.5rem);
+    letter-spacing: 0.5px;
 }
 
-/* Style spécifique pour le titre de l'onglet Enrichir */
-.enrich-input-title {
-    position: relative;
-    left: 100px;
-    top: 20px;
-    margin-bottom: 40px; /* Augmenter l'espace entre le titre et la zone de texte */
-    display: block;
-    z-index: 2; /* S'assurer que le titre est au-dessus des autres éléments */
-}
-
-.mainpanel.active .title {
-    display: block;
-    margin-bottom: 30px;
-}
-
+/* ========== PANELS DE CONTENU ========== */
 .panel {
-    position: absolute;
-    left: 100px;
-    top: 80px;
-    right: 20px;
-    height: auto;
-    min-height: 100px;
-    max-height: 200px;
-    padding: 7px;
-    border: 0.7px solid #bfc1c8;
-    border-radius: 5px;
-    font-size: 12px;
-    color: #303030;
-    background-color: snow;
-    overflow-x: hidden;
+    background-color: var(--slds-c-color-background-default, rgba(255, 255, 255, 0.9));
+    border: 1px solid var(--slds-c-color-border-default, #bfc1c8);
+    border-radius: var(--slds-c-border-radius-medium, 8px);
+    padding: var(--slds-c-spacing-medium, 1rem);
+    font-size: var(--slds-c-font-size-2, 0.8125rem);
+    color: var(--slds-c-color-text-default, #303030);
+    box-shadow: var(--slds-c-shadow-default, 0 2px 8px rgba(0, 0, 0, 0.1));
     overflow-y: auto;
-    opacity: 0.70;
-    box-shadow: 1px 2px 7px 0px #AAAAAA22;
-}
-
-/* Styles spécifiques pour les panneaux dans les conteneurs flex */
-.enrich-container .panel {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
+    max-height: 18.75rem;
 }
 
 .panel-answer {
-    border-left: 3px solid #76dac6;
-    color: #1A1A1A;
+    border-left: 4px solid #76dac6;
 }
 
 .panel-info {
-    border-left: 3px solid #76aada;
+    border-left: 4px solid #76aada;
     color: #194977;
-    max-height: 200px;
-    overflow-y: auto;
 }
 
+/* ========== TAGS ========== */
 .panel-tag {
-    position: absolute;
-    left: 100px;
-    top: calc(80px + var(--panel-height, 200px) + 10px); /* Positionnement en dessous du panneau */
-    height: 20px;
-    padding: 0 12px;
-    font-size: 10.5px;
-    letter-spacing: 0.8px;
-    line-height: 19px;
+    display: inline-block;
+    padding: var(--slds-c-spacing-xx-small, 0.25rem) var(--slds-c-spacing-medium, 1rem);
+    font-size: var(--slds-c-font-size-1, 0.6875rem);
+    font-weight: var(--slds-c-font-weight-medium, 500);
+    color: var(--slds-c-color-text-inverse, white);
+    background-color: var(--slds-c-color-background-brand, #2b82b8);
+    border-radius: var(--slds-c-border-radius-pill, 20px);
+    margin: var(--slds-c-spacing-small, 0.5rem) 0;
     text-align: center;
-    color: snow;
-    background-color: #2b82b8;
-    border-radius: 15px;
-    cursor: default;
-    box-shadow: 1px 2px 5px 0px #33333333;
-    z-index: 1; /* Assurer que le tag est au-dessus */
 }
 
 .panel-tag.success {
-    background-color: #5acda1;
+    background-color: var(--slds-c-color-background-success, #5acda1);
 }
 
 .panel-tag.error {
-    background-color: #cd5a5a;
+    background-color: var(--slds-c-color-background-error, #cd5a5a);
 }
 
 .panel-tag.info {
-    background-color: #2b82b8;
+    background-color: var(--slds-c-color-background-brand, #2b82b8);
 }
 
+/* ========== BOUTONS ========== */
 .panel-button {
-    position: absolute;
-    right: 20px;
-    top: calc(80px + var(--panel-height, 200px) + 40px); /* Positionnement en dessous du tag */
-    height: 36px;
-    text-align: right;
-    z-index: 1; /* Assurer que les boutons sont au-dessus */
-}
-
-/* Styles spécifiques pour les boutons dans les conteneurs flex */
-.enrich-container .panel-button {
-    position: relative;
-    top: auto;
-    right: auto;
-    height: auto;
-    margin-top: 10px;
-    text-align: right;
+    display: flex;
+    gap: var(--slds-c-spacing-small, 0.5rem);
+    justify-content: flex-end;
+    margin-top: var(--slds-c-spacing-medium, 1rem);
 }
 
 .button {
-    display: inline-block;
-    margin-left: 3px;
-    padding: 2px 15px;
-    background-color: snow;
-    border: 1px solid #c8dcd7;
-    border-radius: 15px;
-    font-size: 11.5px;
-    letter-spacing: 0.7px;
-    line-height: 24px;
-    opacity: 0.85;
+    padding: var(--slds-c-spacing-xx-small, 0.25rem) var(--slds-c-spacing-medium, 1rem);
+    background-color: var(--slds-c-color-background-button-default, white);
+    border: 1px solid var(--slds-c-color-border-default, #c8dcd7);
+    border-radius: var(--slds-c-border-radius-pill, 20px);
+    font-size: var(--slds-c-font-size-2, 0.75rem);
     cursor: pointer;
-    box-shadow: 1px 2px 5px 0px #33333333;
+    transition: all 0.3s ease;
+    font-weight: var(--slds-c-font-weight-medium, 500);
+    min-width: 7.5rem;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 .button.ok {
-    border: none;
-    background-color: #1f73b7;
-    border-color: #1f73b7;
-    color: white;
-    opacity: 0.85;
+    background-color: var(--slds-c-color-background-button-brand, #1f73b7);
+    color: var(--slds-c-color-text-button-brand, white);
+    border-color: var(--slds-c-color-border-button-brand, #1f73b7);
 }
 
 .button:hover {
-    color: white;
-    border-color: #12b393;
-    background-color: #12b393;
+    background-color: var(--slds-c-color-background-button-brand-hover, #12b393);
+    color: var(--slds-c-color-text-inverse, white);
+    border-color: var(--slds-c-color-border-button-brand-hover, #12b393);
 }
 
-/* Ensure textarea doesn't take all the space when enriched response is shown */
+/* ========== TEXTAREA ========== */
 textarea {
     width: 100%;
-    height: auto;
-    min-height: 100px;
-    max-height: 150px; /* Réduire la hauteur maximale quand la réponse enrichie est affichée */
-    padding-right: 7px;
-    resize: none;
+    min-height: 6.25rem;
+    max-height: 12.5rem;
+    padding: var(--slds-c-spacing-small, 0.5rem);
     border: none;
     outline: none;
-    background: none;
-    font-size: 12px;
-    letter-spacing: 1.5px;
-    line-height: 17px;
-    color: #303030;
+    background: transparent;
+    font-size: var(--slds-c-font-size-2, 0.8125rem);
+    line-height: var(--slds-c-line-height-text, 1.5);
+    color: var(--slds-c-color-text-default, #303030);
+    resize: vertical;
+    font-family: inherit;
 }
 
-/* Ajuster la hauteur de la textarea quand il n'y a pas de réponse enrichie */
-.panel:not(:has(.enriched-response-section)) textarea {
-    max-height: 200px;
-}
-
+/* ========== TEXT FORMATTING ========== */
 .text-msg {
-    font-size: 12px;
-    letter-spacing: 1.5px;
-    line-height: 17px;
+    font-size: var(--slds-c-font-size-2, 0.8125rem);
+    line-height: var(--slds-c-line-height-text, 1.6);
+    color: var(--slds-c-color-text-default, #303030);
 }
 
-/* Style pour le contenu formaté */
 .text-msg lightning-formatted-rich-text {
     display: block;
     width: 100%;
 }
 
-/* Assurer que les liens dans le texte formaté sont bien stylés */
 .text-msg a {
-    color: #1f73b7;
+    color: var(--slds-c-color-text-link, #1f73b7);
     text-decoration: underline;
 }
 
-/* Style pour les listes dans le texte formaté */
 .text-msg ul, .text-msg ol {
-    padding-left: 20px;
-    margin: 5px 0;
+    padding-left: var(--slds-c-spacing-medium, 1rem);
+    margin: var(--slds-c-spacing-xx-small, 0.25rem) 0;
 }
 
-/* Style pour les paragraphes dans le texte formaté */
 .text-msg p {
-    margin: 5px 0;
+    margin: var(--slds-c-spacing-xx-small, 0.25rem) 0;
 }
 
-/* Style pour le gras et l'italique */
 .text-msg strong {
-    font-weight: bold;
+    font-weight: var(--slds-c-font-weight-bold, 600);
 }
 
 .text-msg em {
     font-style: italic;
 }
 
-.achille-editor {
-    background: #f7efec;
-    border-radius: 0.25rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: 330px;
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-}
-
-.editor-header {
-    background: black;
-    padding: 0;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-    position: relative;
-}
-
-.achille-logo {
-    position: absolute;
-    left: 20px;
-    height: 32px;
-    width: auto;
-    padding: 5px;
-    object-fit: contain;
-    margin: 2px 16px;
-}
-
-.tabs-container {
-    background: #000000;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    gap: 2px;
-    height: 36px;
-    align-items: flex-end;
-}
-
-.tab {
-    padding: 6px 14px;
-    cursor: pointer;
-    border: none;
-    border-radius: 6px 6px 0 0;
-    font-size: 0.813rem;
-    background: #f0f0f0;
-    color: #666;
-    transition: all 0.3s ease;
-    height: 30px;
-}
-
-.tab.active {
-    background: #ffffff;
-    color: #000;
-    height: 33px;
-}
-
-.editor-content {
-    padding: 1rem;
-    position: relative;
-    background-size: contain;
-    background-position: center;
-    min-height: 300px;
-    height: calc(100% - 48px);
-    overflow: visible;
-}
-
-/* Ajustement du panel d'enrichissement */
-.enrich-panel {
+/* ========== SPINNER - UTILISE SLDS MODAL PATTERN ========== */
+.spinner-container {
+    /* Utilise les classes SLDS pour le modal au lieu de position: fixed */
+    background: rgba(247, 239, 236, 0.95);
+    border-radius: var(--slds-c-border-radius-medium, 12px);
+    padding: var(--slds-c-spacing-large, 2rem);
+    box-shadow: var(--slds-c-shadow-overlay, 0 8px 32px rgba(0, 0, 0, 0.2));
     display: flex;
     flex-direction: column;
-    height: 100%;
-    margin: 0;
-    max-width: 800px;
-    width: 100%;
-    overflow: visible;
+    align-items: center;
+    margin: var(--slds-c-spacing-large, 2rem) auto;
+    max-width: 20rem;
 }
 
-.input-container {
-    background: transparent;
-    padding: 0;
-    width: 100%;
-    z-index: 1;
-    margin-bottom: 0.75rem;
+.spinner-image {
+    max-width: 5rem;
+    max-height: 5rem;
+    width: auto;
     height: auto;
 }
 
-/* Style pour la zone de texte */
-.custom-input {
-    height: 120px;
-}
-
-.custom-input textarea {
-    min-height: 120px !important;
-    padding: 12px;
-    line-height: 1.5;
-    font-size: 15px;
-    border-radius: 4px;
-    resize: none;
-}
-
-/* Ajustement du label */
-.input-container .slds-form-element__label {
-    font-size: 16px;
-    color: #8b7355;
-    font-weight: 500;
-    margin-bottom: 8px;
-    letter-spacing: 0.2px;
-}
-
-.conversation-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    overflow-y: visible;
-}
-
-.messages-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.user-text {
-    background-color: #f3f3f3;
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
-    padding: 0.75rem;
-    position: relative;
-    padding-bottom: 24px; /* Espace pour le timestamp */
-}
-
-.enriched-response {
-    background-color: #e8f4ff;
-    border-radius: 4px;
-    border-left: 3px solid #76dac6;
-    padding: 0.75rem;
-    margin-bottom: 0.75rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding-bottom: 24px; /* Espace pour le timestamp */
-}
-
-.enriched-response lightning-formatted-rich-text {
-    display: block;
-    min-height: 80px;
-    margin-top: 0.5rem;
-}
-
-.action-buttons {
-    position: relative;
-    margin-top: 0.5rem;
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-}
-
-.action-button {
-    background: transparent;
-    border: none;
-    padding: 4px;
-    border-radius: 4px;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
-}
-
-.action-button:hover {
-    opacity: 1;
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.button-group {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-    margin-top: 8px;
-}
-
-.button-group button.enrich {
-    background-color: #12b393;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    font-size: 13px;
-    padding: 2px 16px;
-    line-height: 24px;
-    height: 28px;
-}
-
-.button-group button.cancel {
-    background-color: snow;
-    border: 1px solid #c8dcd7;
-}
-
-.content-section {
-    margin-bottom: 1rem;
-}
-
-.section-title {
-    font-size: 0.875rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-.answer-panel {
-    border-left: 3px solid #76dac6;
-}
-
-.info-panel {
-    border-left: 3px solid #76aada;
-}
-
-.tag {
-    display: inline-block;
-    padding: 0.25rem 1rem;
-    border-radius: 1rem;
-    font-size: 0.75rem;
-    color: white;
-    margin: 0.5rem 0;
-}
-
-.tag.success {
-    background: #5acda1;
-}
-
-.tag.error {
-    background: #cd5a5a;
-}
-
-/* Modification du spinner */
-.spinner-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(247, 239, 236, 0.9); /* Fond légèrement teinté qui correspond au thème */
-    border-radius: 8px;
-    padding: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000; /* S'assurer qu'il est au-dessus des autres éléments */
-}
-
 .spinner-text {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    white-space: nowrap;
+    margin-top: var(--slds-c-spacing-medium, 1rem);
+    font-size: var(--slds-c-font-size-3, 0.875rem);
+    font-weight: var(--slds-c-font-weight-medium, 500);
+    color: var(--slds-c-color-text-default, #303030);
+    text-align: center;
 }
 
-/* Animation pour les messages */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ========== ENRICHISSEMENT ========== */
+.enrich-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-c-spacing-medium, 1rem);
+    width: 100%;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+.enrich-container .panel {
+    margin: 0;
 }
 
-.enriched-response::before {
-    content: "✨";
-    position: absolute;
-    left: -20px;
-    opacity: 0;
-    animation: fadeIn 0.3s ease-out 0.2s forwards;
+.enrich-container .panel-button {
+    margin: 0;
 }
 
-.action-icon {
-    --sds-c-icon-color-foreground-default: currentColor;
+.enrich-title {
+    font-size: var(--slds-c-font-size-3, 0.875rem);
+    font-weight: var(--slds-c-font-weight-medium, 500);
+    color: var(--slds-c-color-text-default, #303030);
+    margin-top: var(--slds-c-spacing-medium, 1rem);
+    margin-bottom: var(--slds-c-spacing-small, 0.5rem);
+    letter-spacing: 0.5px;
 }
 
-/* Media queries pour différentes tailles d'écran */
+.panel-enriched {
+    border-left: 4px solid #76dac6;
+    background-color: rgba(232, 244, 255, 0.9);
+}
+
+.enriched-response-content {
+    font-size: var(--slds-c-font-size-2, 0.8125rem);
+    line-height: var(--slds-c-line-height-text, 1.6);
+    color: var(--slds-c-color-text-default, #1A1A1A);
+}
+
+.response-timestamp {
+    font-size: var(--slds-c-font-size-1, 0.6875rem);
+    color: var(--slds-c-color-text-weak, #666);
+    text-align: right;
+    margin-top: var(--slds-c-spacing-small, 0.5rem);
+    font-style: italic;
+}
+
+/* ========== RESPONSIVE ========== */
 @media screen and (max-width: 768px) {
-    .enrich-panel {
-        width: 95%;
-        margin: 0.5rem auto;
+    .panel-gradient {
+        flex-direction: column;
+        gap: var(--slds-c-spacing-medium, 1rem);
+    }
+    
+    .warrior-container {
+        width: 100%;
+        justify-content: flex-start;
+        padding-top: 0;
+    }
+    
+    .warrior-image {
+        max-width: 3.75rem;
+        max-height: 4.375rem;
     }
     
     .tab {
-        min-width: 80px;
-        padding: 8px 12px;
-        font-size: 11px;
-    }
-    
-    .editor-content {
-        padding: 0.5rem;
+        min-width: 5rem;
+        font-size: var(--slds-c-font-size-1, 0.6875rem);
     }
 }
 
 @media screen and (max-width: 480px) {
-    .achille-logo {
-        width: 80px;
-        height: 24px;
+    .title-bar {
+        min-height: 2.1875rem;
+        padding: 0 var(--slds-c-spacing-small, 0.5rem);
+    }
+    
+    .logo-image {
+        max-height: 1rem;
     }
     
     .tab {
-        min-width: 70px;
-        padding: 8px 8px;
-        font-size: 10px;
+        min-width: 4.375rem;
+        font-size: var(--slds-c-font-size-1, 0.625rem);
+        padding: 0 var(--slds-c-spacing-small, 0.5rem);
     }
-}
-
-.conversation-history {
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.conversation-history .slds-box {
-    background-color: #f3f3f3;
-    border-radius: 4px;
-}
-
-.slds-p-bottom_medium {
-    position: relative;
-}
-
-.suggestion-container {
-    background: white;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.suggestion-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.achille-avatar {
-    width: 48px;
-    height: 48px;
-}
-
-.suggestion-title {
-    font-size: 1.2rem;
-    color: #2d2d2d;
-    margin: 0;
-}
-
-.suggestion-content {
-    background: #f8f8f8;
-    border-radius: 4px;
-    padding: 1rem;
-    margin: 1rem 0;
-    border-left: 4px solid #86d9c2;
-}
-
-.suggestion-text {
-    white-space: pre-wrap;
-    color: #444;
-    line-height: 1.5;
-}
-
-.suggestion-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1rem;
-}
-
-.status-badge {
-    background: #86d9c2;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-}
-
-.suggestion-actions {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.cancel-button, .copy-button {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-
-.cancel-button {
-    background: white;
-    border: 1px solid #d8d8d8;
-    color: #444;
-}
-
-.copy-button {
-    background: #4087f1;
-    color: white;
-}
-
-.button-icon {
-    --sds-c-icon-color-foreground-default: currentColor;
-}
-
-/* Style du conteneur principal */
-.content-container {
-    background-color: rgba(255, 255, 255, 0.65);
-    border-radius: 8px;
-    padding: 12px 0;
-    height: auto;
-    min-height: 100%;
-}
-
-/* Nouveau style pour le contenu */
-.body-container {
-    background-image: var(--achille-bg-url);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: calc(100% - 48px);
-    padding: 12px;
-    overflow-y: auto;
-}
-
-/* Style de la zone de texte */
-.slds-form-element__control {
-    margin-bottom: 0;
-}
-
-.message-timestamp {
-    position: absolute;
-    bottom: 4px;
-    right: 8px;
-    font-size: 11px;
-    color: #666;
-}
-
-/* Style du label */
-.input-label {
-    font-size: 16px;
-    color: #8b7355;
-    font-weight: 500;
-    margin-bottom: 8px;
-    letter-spacing: 0.2px;
-    display: block;
-}
-
-/* Style de la zone de texte */
-.custom-textarea {
-    width: 100%;
-    min-height: 120px;
-    padding: 12px;
-    font-size: 15px;
-    line-height: 1.5;
-    border: 1px solid #d8d8d8;
-    border-radius: 4px;
-    resize: none;
-    background-color: white;
-    margin-bottom: 8px;
-}
-
-.custom-textarea:focus {
-    outline: none;
-    border-color: #76dac6;
-    box-shadow: 0 0 0 1px #76dac6;
-}
-
-/* Header noir */
-.header-bar {
-    width: 100%;
-    height: 35px;
-    background-color: black;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Zone des onglets */
-.tabs-area {
-    display: flex;
-    margin-left: 180px;
-}
-
-/* Style des onglets */
-.autoResponseTab, .enrichTab {
-    height: 22px;
-    width: 100px;
-    background-color: #b8aaa5;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    line-height: 22px;
-    font-size: 10.5px;
-    text-align: center;
-    color: #333333;
-    cursor: pointer;
-    margin-right: 5px;
-    border: none;
-}
-
-.autoResponseTab.selected, .enrichTab.selected {
-    background-color: #f7efec;
-}
-
-/* Zone du logo */
-.logo-area {
-    margin-right: 15px;
-}
-
-/* Style du logo principal */
-.main-logo {
-    height: 18px;
-}
-
-.spinner-image {
-    width: 214px;
-    height: 214px;
-}
-
-/* Styles pour les réponses enrichies */
-.enriched-responses-container {
-    position: absolute;
-    left: 100px;
-    top: 200px; /* Ajustez selon votre mise en page */
-    right: 20px;
-    bottom: 20px;
-    overflow-y: auto;
-}
-
-.enriched-response-panel {
-    background-color: snow;
-    border-left: 3px solid #76dac6;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    opacity: 0.9;
-    position: relative;
-}
-
-.enriched-text {
-    font-size: 12px;
-    letter-spacing: 1.5px;
-    line-height: 17px;
-    margin-bottom: 10px;
-}
-
-.response-timestamp {
-    font-size: 10px;
-    color: #666;
-    text-align: right;
-    margin-bottom: 5px;
-}
-
-.response-actions {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
-    gap: 10px;
-    position: relative;
-    left: 100px;
-    width: calc(100% - 120px);
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.response-actions button {
-    flex-shrink: 0; /* Empêche les boutons de rétrécir */
-    white-space: nowrap; /* Empêche le texte de passer à la ligne */
-}
-
-/* Style pour les messages d'erreur */
-.error-message {
-    position: absolute;
-    left: 100px;
-    top: 200px;
-    right: 20px;
-    padding: 10px;
-    background-color: #ffebee;
-    border-left: 3px solid #cd5a5a;
-    color: #781c1c;
-    border-radius: 5px;
-    font-size: 12px;
-}
-
-/* Styles pour la réponse enrichie */
-.enriched-response-container {
-    margin-top: 20px;
-    background-color: white;
-    border-radius: 5px;
-    border-left: 3px solid #76dac6;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.enriched-response-title {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.enriched-response-content {
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    line-height: 16px;
-    color: #1A1A1A;
-    padding: 0;
-    margin-bottom: 4px;
-    overflow: visible;
-}
-
-/* Style pour le texte original de l'utilisateur */
-.user-original-text {
-    font-size: 12px;
-    letter-spacing: 1.5px;
-    line-height: 17px;
-    color: #666;
-    padding: 8px;
-    background-color: rgba(240, 240, 240, 0.7);
-    border-radius: 3px;
-    margin-bottom: 10px;
-    border-left: 2px solid #bfc1c8;
-}
-
-.original-text-label {
-    font-weight: 500;
-    font-size: 11px;
-    color: #555;
-    margin-bottom: 5px;
-}
-
-.original-text-content {
-    font-style: italic;
-    white-space: pre-wrap;
-    word-break: break-word;
-}
-
-.enriched-response-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-}
-
-/* Style pour le spinner */
-.spinner-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-}
-
-.spinner {
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Style pour les messages d'erreur */
-.error-message {
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #ffebee;
-    border-left: 3px solid #f44336;
-    color: #b71c1c;
-    border-radius: 4px;
-    font-size: 13px;
-}
-
-/* Styles for the enriched response section inside the textarea panel */
-.enriched-response-section {
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px dashed #bfc1c8;
-    max-height: none;
-    overflow-y: visible;
-}
-
-.enriched-response-title {
-    font-size: 13px;
-    font-weight: 500;
-    color: #303030;
-    margin-bottom: 10px;
-}
-
-.enriched-response-content {
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    line-height: 16px;
-    color: #1A1A1A;
-    padding: 0;
-    margin-bottom: 4px;
-    overflow: visible;
-}
-
-.response-actions {
-    text-align: right;
-    margin: 10px 0;
-}
-
-.response-timestamp {
-    font-size: 10px;
-    color: #666;
-    text-align: right;
-    margin-top: 5px;
-}
-
-/* Style pour le panneau compact */
-.panel.compact {
-    height: auto;
-    min-height: 100px;
-    max-height: 200px;
-}
-
-/* Ajuster la position du tag et des boutons pour le panneau d'information */
-.frame-info .panel-tag {
-    position: absolute;
-}
-
-.frame-info .panel-button {
-    position: absolute;
-}
-
-.panel-input {
-    top: 80px;
-    min-height: 80px;
-    max-height: 120px;
-}
-
-.input-buttons {
-    top: calc(80px + 120px + 10px);
-}
-
-.panel-enriched {
-    border-left: 3px solid #76dac6;
-    color: #1A1A1A;
-    overflow: visible;
-    max-height: none;
-}
-
-.enriched-title {
-    position: relative;
-    left: 100px;
-    top: 20px;
-    line-height: 25px;
-    letter-spacing: 1.5px;
-    font-size: 13px;
-    font-weight: 400;
-    color: #303030;
-    margin-bottom: 30px;
-    display: block;
-    margin-top: 0;
-}
-
-.response-title {
-    top: calc(80px + 120px + 10px + 40px);
-}
-
-.enriched-response-content {
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    line-height: 16px;
-    color: #1A1A1A;
-    padding: 0;
-    margin-bottom: 4px;
-}
-
-.response-actions {
-    text-align: right;
-    margin: 8px 0;
-}
-
-.response-timestamp {
-    font-size: 9px;
-    color: #666;
-    text-align: right;
-    margin-top: 4px;
-}
-
-/* Ajuster la hauteur de la textarea quand il n'y a pas de réponse enrichie */
-.panel-input textarea {
-    width: 100%;
-    height: auto;
-    min-height: 80px;
-    max-height: 120px;
-    padding-right: 7px;
-    resize: none;
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    line-height: 16px;
-    color: #303030;
-}
-
-/* Style pour les titres de l'onglet Enrichir */
-.enrich-title {
-    position: relative;
-    left: 100px;
-    top: 20px;
-    line-height: 25px;
-    letter-spacing: 1.5px;
-    font-size: 13px;
-    font-weight: 400;
-    color: #303030;
-    margin-bottom: 30px;
-    display: block;
-    margin-top: 0;
-    width: calc(100% - 120px);
-}
-
-/* Style pour le conteneur d'enrichissement */
-.enrich-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 30px;
-    width: 100%;
-}
-
-/* Ajuster la position du panneau d'entrée pour qu'il soit sous le titre */
-.enrich-container .panel-input {
-    position: relative;
-    left: 100px;
-    right: 20px;
-    width: calc(100% - 120px);
-    min-height: 80px;
-    max-height: 120px;
-    margin-top: 10px;
-    top: auto;
-}
-
-/* Ajuster la position du panneau enrichi */
-.enrich-container .panel-enriched {
-    position: relative;
-    left: 100px;
-    right: 20px;
-    width: calc(100% - 120px);
-    min-height: 80px;
-    height: auto;
-    border-left: 3px solid #76dac6;
-    margin-top: 10px;
-    top: auto;
-    overflow: visible;
-}
-
-/* Ajuster les positions des autres éléments en conséquence */
-.enrich-container .input-buttons {
-    position: relative;
-    right: 20px;
-    margin-top: 10px;
-    align-self: flex-end;
-    top: auto;
-}
-
-/* Style pour le contenu de la réponse enrichie */
-.enriched-response-content {
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    line-height: 16px;
-    color: #1A1A1A;
-    padding: 0;
-    margin-bottom: 4px;
-    overflow: visible;
-}
-
-/* Ajuster la position des boutons de réponse */
-.enrich-container .response-actions {
-    position: relative;
-    left: 100px;
-    width: calc(100% - 120px);
-    margin-top: 10px;
-    margin-bottom: 20px;
-    text-align: right;
+    
+    .panel-gradient {
+        padding: var(--slds-c-spacing-medium, 1rem);
+    }
 }

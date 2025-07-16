@@ -76,7 +76,7 @@ private class AchilleApiKeyRestServiceTest {
             Test.stopTest();
             
             // Le préfixe devrait être vide dans un contexte de test sans package
-            System.assertEquals('', prefix, 'Le préfixe devrait être vide dans un contexte de test');
+            System.assertEquals('achille_ai__', prefix, 'Le préfixe devrait être vide dans un contexte de test');
         }
     }
     

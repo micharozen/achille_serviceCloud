@@ -1,5 +1,5 @@
 .component-container {
-    max-width: 1200px;  /* ou la largeur maximale souhaitée */
+    max-width: 75rem;  /* 1200px converti en rem */
     margin: 0 auto;
     width: 100%;
 }
@@ -7,38 +7,40 @@
 .header-container {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding-left: 0.75rem;
+    gap: var(--slds-c-spacing-small, 0.5rem);
+    padding-left: var(--slds-c-spacing-small, 0.75rem);
     justify-content: flex-start;
 }
 
 .achille-logo {
-    height: 24px;
+    max-height: 1.5rem;  /* 24px converti en rem avec max-height */
     width: auto;
 }
 
 .custom-icon {
-    height: 20px;
-    width: 20px;
+    max-height: 1.25rem;  /* 20px converti en rem avec max-height */
+    max-width: 1.25rem;   /* 20px converti en rem avec max-width */
+    width: auto;
+    height: auto;
     filter: brightness(0) invert(1);
 }
 
 .status-icon.custom-icon {
-    margin-right: 4px;
+    margin-right: var(--slds-c-spacing-xx-small, 0.25rem);
 }
 
 .indicator-box {
-    padding: 0.75rem;
-    background-color: #ffffff;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: var(--slds-c-spacing-small, 0.75rem);
+    background-color: var(--slds-c-color-background-default, #ffffff);
+    border-radius: var(--slds-c-border-radius-medium, 0.5rem);
+    box-shadow: var(--slds-c-shadow-default, 0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .indicator-header {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
+    gap: var(--slds-c-spacing-small, 0.5rem);
+    margin-bottom: var(--slds-c-spacing-small, 0.5rem);
     justify-content: center;
 }
 
@@ -48,40 +50,40 @@
 }
 
 .indicator-label {
-    font-size: 0.875rem;
-    color: #514f4d;
-    font-weight: 600;
+    font-size: var(--slds-c-font-size-3, 0.875rem);
+    color: var(--slds-c-color-text-default, #514f4d);
+    font-weight: var(--slds-c-font-weight-bold, 600);
 }
 
 .indicator-value, .success-background, .warning-background, .danger-background, .info-background {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.2rem 0.75rem;
-    border-radius: 1rem;
-    font-weight: bold;
-    font-size: 0.8125rem;
+    gap: var(--slds-c-spacing-small, 0.5rem);
+    padding: var(--slds-c-spacing-xx-small, 0.2rem) var(--slds-c-spacing-small, 0.75rem);
+    border-radius: var(--slds-c-border-radius-pill, 1rem);
+    font-weight: var(--slds-c-font-weight-bold, bold);
+    font-size: var(--slds-c-font-size-2, 0.8125rem);
 }
 
 .success-background {
-    background-color: #4CAF50; /* vert */
-    color: white;
+    background-color: var(--slds-c-color-background-success, #4CAF50);
+    color: var(--slds-c-color-text-inverse, white);
 }
 
 .warning-background {
-    background-color: #FF9800; /* orange */
-    color: white;
+    background-color: var(--slds-c-color-background-warning, #FF9800);
+    color: var(--slds-c-color-text-inverse, white);
 }
 
 .danger-background {
-    background-color: #F44336; /* rouge */
-    color: white;
+    background-color: var(--slds-c-color-background-error, #F44336);
+    color: var(--slds-c-color-text-inverse, white);
 }
 
 .info-background {
-    background-color: #808080; /* gris au lieu de bleu */
-    color: white;
+    background-color: var(--slds-c-color-background-neutral, #808080);
+    color: var(--slds-c-color-text-inverse, white);
 }
 
 .icon-color-error {
@@ -96,33 +98,29 @@
 }
 
 .title {
-    font-size: 1rem;
-    font-weight: 500;
-    color: #16325c;
+    font-size: var(--slds-c-font-size-4, 1rem);
+    font-weight: var(--slds-c-font-weight-medium, 500);
+    color: var(--slds-c-color-text-brand, #16325c);
 }
-
-/*
-
-*/
 
 /* Ajout d'un style pour les lightning-icons */
 .indicator-icon lightning-icon {
-    --sds-c-icon-color-foreground-default: #514f4d;  /* Même couleur que le texte */
+    --slds-c-icon-color-foreground-default: #514f4d;  /* Même couleur que le texte */
 }
 
 /* Ajuster le padding du conteneur principal */
 .slds-p-around_medium {
-    padding: 1rem 0.75rem;
+    padding: var(--slds-c-spacing-medium, 1rem) var(--slds-c-spacing-small, 0.75rem);
 }
 
 /* Optionnel : ajuster le padding de la lightning-card si nécessaire */
 :host {
-    --sds-c-card-spacing-block-start: 0;
-    --sds-c-card-spacing-block-end: 0;
-    --sds-c-card-spacing-inline-start: 0;
-    --sds-c-card-spacing-inline-end: 0;
+    --slds-c-card-spacing-block-start: 0;
+    --slds-c-card-spacing-block-end: 0;
+    --slds-c-card-spacing-inline-start: 0;
+    --slds-c-card-spacing-inline-end: 0;
 }
 
 .status-icon {
-    --sds-c-icon-color-foreground-default: currentColor;
+    --slds-c-icon-color-foreground-default: currentColor;
 }

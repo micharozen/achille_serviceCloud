@@ -1,5 +1,4 @@
-public class AchilleAPIService {
-    private static final String BASE_URL = 'callout:Achille';
+public with sharing class AchilleAPIService {
     
     // Singleton pattern
     private static AchilleAPIService instance;
@@ -32,12 +31,12 @@ public class AchilleAPIService {
      */
     private APIResponse call(String endpoint, String method, String body) {
         HttpRequest req = new HttpRequest();
-        req.setEndpoint(BASE_URL + endpoint);
+        req.setEndpoint('callout:' + AchilleApiKeyRestService.getNamespacePrefix() + 'Achille' + endpoint);
         req.setMethod(method);
         
         // Définir le timeout à 120 secondes
         req.setTimeout(120000);
-        
+        req.setHeader('X-API-Key', getApiKey());
         // Ajouter le header Content-Type pour les requêtes POST
         if (method == 'POST') {
             req.setHeader('Content-Type', 'application/json');
@@ -167,4 +166,12 @@ public class AchilleAPIService {
         }
         return null;
     }
+
+    public static String getApiKey() {
+        if(Test.isRunningTest()) {
+            return 'test';
+        }
+        return [SELECT ApiKey__c FROM AchilleInfos__mdt LIMIT 1].ApiKey__c;
+    }
+
 } 
